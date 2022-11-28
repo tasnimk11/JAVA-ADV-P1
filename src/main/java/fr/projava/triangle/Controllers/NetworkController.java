@@ -2,19 +2,20 @@ package fr.projava.triangle.Controllers;
 
 import fr.projava.triangle.Models.User;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 
 public class NetworkController {
     private String BroadcastAddress="255.255.255.255";
+    public void setBroadcastAdress(String BroadcastAddress) {
+        this.BroadcastAddress=BroadcastAddress;
+    }
     public void BroadcastUDP(User u, boolean connection) throws IOException {
-
-            DatagramSocket socket = new DatagramSocket();
-            socket.setBroadcast(true);
             String bcMsg = u.getPseudo()+"|"+u.getIPAddress()+"|"+u.getPort()+"|"+connection;
             byte[] buffer = bcMsg.getBytes();
-
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(BroadcastAddress), 1108);
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(this.BroadcastAddress), 1108);
+            DatagramSocket socket = new DatagramSocket();
+            socket.setBroadcast(true);
             socket.send(packet);
             socket.close();
     }
@@ -22,12 +23,31 @@ public class NetworkController {
 
             byte[] buffer = new byte[512];
             DatagramPacket response = new DatagramPacket(buffer, buffer.length);
-            DatagramSocket socket = new DatagramSocket();
+            DatagramSocket socket = new DatagramSocket(1108);
             socket.receive(response);
-            String reception = new String(buffer, 0, response.getLength());
-            System.out.println(reception);
+            String reception = new String(response.getData());
             return reception;
+
+    }
+    public void SendTCP(User u, String msg) throws IOException {
+        Socket link=new Socket("10.32.43.235",1234);
+        ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
+        PrintWriter writer = new PrintWriter(out, true);
+        writer.println(msg);
 
 
     }
+    public void ListenTCP() throws IOException {
+        ServerSocket serverSocket = new ServerSocket(1234);
+        Socket clientSocket = serverSocket.accept();
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+        InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
+        BufferedReader in = new BufferedReader(isr);
+        String greeting = in.readLine();
+        System.out.println(greeting);
+        InetSocketAddress socketAddress = (InetSocketAddress) clientSocket.getRemoteSocketAddress();
+        String clientIpAddress = socketAddress.getAddress().getHostAddress();
+
+    }
+
 }

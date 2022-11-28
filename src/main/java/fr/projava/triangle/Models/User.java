@@ -17,16 +17,26 @@ public class User {
     public InetAddress getIPAddress() {
         return IPAddress;
     }
+    public void setIPAddress(InetAddress ipAdress) {
+        this.IPAddress=ipAdress;
+    }
 
     public int getPort() {
         return port;
+    }
+    public void setPort(int Port) {
+        this.port=port;
     }
 
     public String getPseudo() {
         return pseudo;
     }
+    public void setPseudo(String pseudo ) {
+        this.pseudo=pseudo;
+    }
 
     public boolean isConnected() {
         return connected;
     }
+
 }
