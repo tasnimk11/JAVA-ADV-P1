@@ -1,8 +1,13 @@
 package fr.projava.triangle.Views;
 
+import fr.projava.triangle.Controllers.AccountController;
+import fr.projava.triangle.Controllers.DatabaseController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
 
 public class AuthWindow extends JFrame implements ActionListener {
 
@@ -45,27 +50,32 @@ public class AuthWindow extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public static void main(String [] args) {
+    public static void main(String [] args) throws SQLException {
+        DatabaseController DB = new DatabaseController();
         AuthWindow Auth =  new AuthWindow();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        try {
+            //Get Pseudo
+            String p = new String(pseudo.getText());
+            if (e.getActionCommand() == "Sign in") {
+                String msg = AccountController.connectToAccount(p);
+                message.setText(msg);
+            } else if (e.getActionCommand() == "Sign up") {
+                String msg = AccountController.newAccount(p);
+                message.setText(msg);
+            } else {
+                message.setText("nothing ...");
+            }
 
-        //Get Pseudo
-        String p = new String(pseudo.getText());
-        System.out.println("pseudo is : " + p);
-        if(e.getActionCommand() == "Sign in"){
-            //sing in
-            message.setText("signing in ...");
-        } else if (e.getActionCommand() == "Sign up"){
-            //sign up
-            message.setText("signing up ...");
-        } else {
-            message.setText("nothing ...");
+
+        } catch (UnknownHostException ex) {
+            throw new RuntimeException(ex);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-
-
 
     }
 }
