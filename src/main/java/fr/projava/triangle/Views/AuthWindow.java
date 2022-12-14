@@ -50,10 +50,10 @@ public class AuthWindow extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public static void main(String [] args) throws SQLException {
+    /*public static void main(String [] args) throws SQLException {
         DatabaseController DB = new DatabaseController();
         AuthWindow Auth =  new AuthWindow();
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {

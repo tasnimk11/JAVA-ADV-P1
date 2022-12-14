@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.projava.triangle.Controllers.AuthWindowController">
+    <AnchorPane prefHeight="330.0" prefWidth="600.0">
+        <ImageView fitHeight="579.0" fitWidth="779.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@images/bg3.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="pseudoInput" layoutX="293.0" layoutY="206.0" prefHeight="26.0" prefWidth="193.0" promptText="enter Pseudo" style="-fx-background-color: #000000; -fx-text-fill: #ffffff;">
+            <font>
+                <Font name="Century Gothic" size="10.0" />
+            </font>
+        </TextField>
+        <Button fx:id="btnSignIn" layoutX="289.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#signIn" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fitHeight="35.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/bt2.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="btnSignUp" layoutX="414.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+            <graphic>
+                <ImageView fitHeight="32.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/bt1.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+      <Label fx:id="returnMessage" alignment="CENTER" ellipsisString="" layoutX="325.0" layoutY="238.0" prefHeight="17.0" prefWidth="129.0" text="..." textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Century Gothic Bold" size="10.0" />
+         </font></Label>
+    </AnchorPane>
+     <AnchorPane layoutY="437.0" prefHeight="20.0" prefWidth="779.0" style="-fx-background-color: #000000;" />
+</Pane>
