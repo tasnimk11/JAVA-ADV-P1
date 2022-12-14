@@ -5,7 +5,7 @@ import fr.projava.triangle.Models.User;
 
 public class ThreadController {
     public ThreadController() {}
-    public void BroadcastConnection(User sender,boolean connection) {
+    public static void BroadcastConnection(User sender, boolean connection) {
         new MThread("BroadcastUDP",sender , connection);
     }
     public void LaunchListeningThreadUDP(User receiver) {
@@ -14,8 +14,8 @@ public class ThreadController {
     public void LaunchListeningThreadTCP(User receiver) {
         new MThread("ListeningTCP",receiver);
     }
-    public boolean validPseudo(User u) throws InterruptedException {
-        this.BroadcastConnection(u,false);
+    public static boolean validPseudo(User u) throws InterruptedException {
+        BroadcastConnection(u,false);
         MThread MT=new MThread("ListeningUDP",u);
         Thread aux= new Thread();
         aux.sleep(5000);

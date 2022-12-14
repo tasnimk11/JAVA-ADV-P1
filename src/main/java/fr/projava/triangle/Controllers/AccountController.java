@@ -34,14 +34,21 @@ public class AccountController {
     * if account doesn't exist
     *   return error message
     * */
-    public static String connectToAccount(String pseudo) throws UnknownHostException, SQLException {
+    public static String connectToAccount(String pseudo) throws UnknownHostException, SQLException, InterruptedException {
         String message ="";
         String ip = InetAddress.getLocalHost().getHostAddress();
         if(DatabaseController.existingAccount(ip,pseudo) == "pseudo_exists") {
             User u = new User   (InetAddress.getLocalHost(),1000,pseudo);
-            message = "Successful Connection";
+            /*bc connection + fill contact book*/
+            if (ThreadController.validPseudo(u)){
+                ThreadController.BroadcastConnection(u,true);
+                message = "Successful Connection";
+            } else {
+                message = "Unable to connect";
+            };
+
         } else
-            message = "Account not found :( . Try again!";
+            message = "Account not found.";
         return message;
     }
 }

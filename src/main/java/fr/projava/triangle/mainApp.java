@@ -1,6 +1,7 @@
 package fr.projava.triangle;
 
 import fr.projava.triangle.Controllers.DatabaseController;
+import fr.projava.triangle.Controllers.ThreadController;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,8 @@ public class mainApp extends Application {
     public void start(Stage stage) throws SQLException, IOException {
         //DB
         DatabaseController DB = new DatabaseController();
-
+        //Thread Ctrl
+        ThreadController TC = new ThreadController();
         //Authentication Window
         FXMLLoader fxmlLoader = new FXMLLoader(mainApp.class.getResource("/AuthWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 779, 450);
