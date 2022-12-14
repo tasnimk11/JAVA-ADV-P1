@@ -1,12 +1,15 @@
 package fr.projava.triangle.Models;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class User {
     private InetAddress IPAddress;
     private int port;
     private String pseudo;
     private boolean connected= false;
+    private ArrayList ContactBook=new ArrayList<>();
 
     public User(InetAddress ipAddress, int port, String pseudo) {
         IPAddress = ipAddress;
@@ -38,5 +41,16 @@ public class User {
     public boolean isConnected() {
         return connected;
     }
+    public void addUserToContactBook(User toAdd){
+        this.ContactBook.add(toAdd);
+    }
+    public boolean checkValidPseudo() {
+        boolean valid=true;
+        Iterator<User> iter = this.ContactBook.iterator();
+        while ((iter.hasNext())&&(valid)) {
+            if (this.pseudo.equals(iter.next())) {valid=false;}
 
+        }
+        return valid;
+    }
 }
