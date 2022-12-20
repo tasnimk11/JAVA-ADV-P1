@@ -8,7 +8,7 @@ public class ThreadController {
     public static void BroadcastConnection(User sender, boolean connection) {
         new MThread("BroadcastUDP",sender , connection);
     }
-    public void LaunchListeningThreadUDP(User receiver) {
+    public static void LaunchListeningThreadUDP(User receiver) {
         new MThread("ListeningUDP",receiver);
     }
     public void LaunchListeningThreadTCP(User receiver) {

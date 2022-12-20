@@ -18,7 +18,7 @@ public class AuthWindowController {
     private TextField pseudoInput;
     @FXML
     private Label returnMessage;
-    public void signIn(MouseEvent mouseEvent) throws UnknownHostException, SQLException {
+    public void signIn(MouseEvent mouseEvent) throws UnknownHostException, SQLException, InterruptedException {
         String p = pseudoInput.getText();
         String msg = AccountController.connectToAccount(p);
         returnMessage.setText(msg);

@@ -73,7 +73,7 @@ public class AuthWindow extends JFrame implements ActionListener {
 
         } catch (UnknownHostException ex) {
             throw new RuntimeException(ex);
-        } catch (SQLException ex) {
+        } catch (SQLException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
 
