@@ -51,8 +51,10 @@ public class MThread extends Thread {
         String [] analyseMsg=recpt.split("-");
         String UserName=analyseMsg[0];
         String AdrIP=analyseMsg[1];
+        String AdrIP2=AdrIP.substring(1);
+        System.out.println(AdrIP2);
         String Port=analyseMsg[2];
-        return new User(InetAddress.getByName(AdrIP),Integer.parseInt(Port),UserName);
+        return new User(InetAddress.getByName(AdrIP2),Integer.parseInt(Port),UserName);
     }
     public void run() {
         NetworkController nc;
@@ -62,20 +64,29 @@ public class MThread extends Thread {
         if(this.type.equals("ListeningUDP")) {
             /***LISTENING THREAD UDP***/
             try {
-                //while(true) {
+                while(true) {
                     String recpt=NetworkController.ListenUDP();
                     String state=recpt.substring(recpt.lastIndexOf("-")+1,recpt.lastIndexOf("-")+2);
                     User u = createOnlineUser(recpt);
-                    System.out.println(recpt);
-                    if(state.equals("1")) {
-                        System.out.println(u.getPseudo());
-                        this.receiver.addUserToContactBook(u);
+                    if ((u.getIPAddress().toString().equals("/0.0.0.0"))&&(u.getPort()==0)) {
+                        //REMOVE FROM ANNUAIRE
+                        this.receiver.removeUserFromContactBook(u);
+                        System.out.println("User "+u.getPseudo()+" removed from contact book succesfully!");
                     }
-                    else{
-                        //LAUNCH A THREAD SEND UDP
-                        new MThread("SendUDP",this.receiver,u,true);
+                    else {
+                        if(state.equals("1")) {
+                            System.out.println("Adding "+ u.getPseudo()+"to contact Book");
+                            this.receiver.addUserToContactBook(u);
+                        }
+                        else{
+                            //LAUNCH A THREAD SEND UDP
+                            System.out.println("Sending coordinates to "+ u.getPseudo() +"from " +this.receiver.getPseudo());
+                            new MThread("SendUDP",this.receiver,u,true);
+                        }
+
                     }
-                //}
+
+                }
             } catch (IOException e)
             {throw new RuntimeException(e);}
         }

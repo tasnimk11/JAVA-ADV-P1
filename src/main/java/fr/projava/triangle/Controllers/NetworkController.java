@@ -33,7 +33,6 @@ public class NetworkController {
         String bcMsg;
         try {
             bcMsg = u.getPseudo() + "-" + u.getIPAddress() + "-" + u.getPort() + "-" + cnx;
-            System.out.println(bcMsg);
             byte[] buffer = bcMsg.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(BroadcastAddress), 1108);
             DatagramSocket socket = new DatagramSocket();
@@ -48,7 +47,7 @@ public class NetworkController {
     public static void SendUDP(User sender, User receiver, boolean connection) throws IOException {
             int cnx=0;
             if (connection) {cnx=1;}
-            String bcMsg = sender.getPseudo()+"/"+sender.getIPAddress()+"/"+sender.getPort()+"/"+cnx;
+            String bcMsg = sender.getPseudo()+"-"+sender.getIPAddress()+"-"+sender.getPort()+"-"+cnx;
             byte[] buffer = bcMsg.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIPAddress(), 1108);
             DatagramSocket socket = new DatagramSocket();
@@ -62,12 +61,14 @@ public class NetworkController {
             socket.receive(response);
             String reception = new String(response.getData());
             System.out.println(reception);
-            socket.close();
             return reception;
+    }
+    public static void CloseListenUDP() {
+        socket.close();
     }
 
     public static void SendTCP(User u, String msg) throws IOException {
-        Socket link=new Socket("10.32.43.235",1234);
+        Socket link=new Socket(u.getIPAddress(),u.getPort());
         ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
         PrintWriter writer = new PrintWriter(out, true);
         writer.println(msg);

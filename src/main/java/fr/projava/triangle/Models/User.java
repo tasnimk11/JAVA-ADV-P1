@@ -42,11 +42,23 @@ public class User {
     public void addUserToContactBook(User toAdd){
         this.ContactBook.add(toAdd);
     }
+    public void removeUserFromContactBook (User toRmv) {
+        int i=0;
+        boolean found=false;
+        while((i < this.getContactBook().size())&&(!found)) {
+            User u1= (User) this.getContactBook().get(i);
+            if (toRmv.getPseudo().equals((u1.getPseudo()))) {
+                this.ContactBook.remove(i);
+                found=true;
+            }
+            i++;
+        }
+    }
     public boolean checkValidPseudo() {
         boolean valid=true;
         Iterator<User> iter = this.ContactBook.iterator();
         while ((iter.hasNext())&&(valid)) {
-            if (this.pseudo.equals(iter.next())) {valid=false;}
+            if (this.pseudo.equals(iter.next().getPseudo())) {valid=false;}
 
         }
         return valid;
@@ -54,4 +66,5 @@ public class User {
     public ArrayList getContactBook() {
         return this.ContactBook;
     }
+
 }

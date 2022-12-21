@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 
 public class AccountController {
-
+    private static User u;
     /*
     * Gets Pseudo from authentication window
     * if pseudo new AND ip none existing then
@@ -38,7 +38,7 @@ public class AccountController {
         String message ="";
         String ip = InetAddress.getLocalHost().getHostAddress();
         if(DatabaseController.existingAccount(ip,pseudo) == "pseudo_exists") {
-            User u = new User   (InetAddress.getLocalHost(),1000,pseudo);
+            u = new User   (InetAddress.getLocalHost(),1000,pseudo);
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(u)){
                 ThreadController.BroadcastConnection(u,true);
@@ -51,4 +51,8 @@ public class AccountController {
             message = "Account not found.";
         return message;
     }
+    /*public static void disconnect() throws UnknownHostException {
+        ThreadController.BroadcastDisconnection(u);
+        NetworkController.CloseListenUDP();
+    }*/
 }
