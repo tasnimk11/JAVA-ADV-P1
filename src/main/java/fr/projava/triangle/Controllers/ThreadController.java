@@ -15,10 +15,10 @@ public class ThreadController {
         new MThread("ListeningTCP",receiver);
     }
     public static boolean validPseudo(User u) throws InterruptedException {
+        LaunchListeningThreadUDP(u);
         BroadcastConnection(u,false);
-        MThread MT=new MThread("ListeningUDP",u);
         Thread aux= new Thread();
-        aux.sleep(5000);
+        aux.sleep(1000);
         return u.checkValidPseudo();
     }
 

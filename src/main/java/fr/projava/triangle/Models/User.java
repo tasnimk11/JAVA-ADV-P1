@@ -31,9 +31,7 @@ public class User {
         this.port=port;
     }
 
-    public String getPseudo() {
-        return pseudo;
-    }
+    public String getPseudo() {return pseudo;}
     public void setPseudo(String pseudo ) {
         this.pseudo=pseudo;
     }
@@ -52,5 +50,8 @@ public class User {
 
         }
         return valid;
+    }
+    public ArrayList getContactBook() {
+        return this.ContactBook;
     }
 }

@@ -5,6 +5,7 @@ import fr.projava.triangle.Controllers.NetworkController;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class MThread extends Thread {
@@ -47,29 +48,34 @@ public class MThread extends Thread {
      * LA CONFIRMATION EST DE LA FORME USERNAME/PORT/ADRESSE IP*/
 
     private User createOnlineUser(String recpt) throws UnknownHostException {
-        String [] analyseMsg=recpt.split("/");
+        String [] analyseMsg=recpt.split("-");
         String UserName=analyseMsg[0];
         String AdrIP=analyseMsg[1];
         String Port=analyseMsg[2];
         return new User(InetAddress.getByName(AdrIP),Integer.parseInt(Port),UserName);
     }
     public void run() {
-        NetworkController nc=new NetworkController();
+        NetworkController nc;
+
+
+
         if(this.type.equals("ListeningUDP")) {
             /***LISTENING THREAD UDP***/
             try {
-                while(true) {
-                    String recpt=nc.ListenUDP();
-                    String state=recpt.substring(recpt.lastIndexOf("/")+1,recpt.lastIndexOf("/")+2);
+                //while(true) {
+                    String recpt=NetworkController.ListenUDP();
+                    String state=recpt.substring(recpt.lastIndexOf("-")+1,recpt.lastIndexOf("-")+2);
                     User u = createOnlineUser(recpt);
+                    System.out.println(recpt);
                     if(state.equals("1")) {
+                        System.out.println(u.getPseudo());
                         this.receiver.addUserToContactBook(u);
                     }
                     else{
                         //LAUNCH A THREAD SEND UDP
                         new MThread("SendUDP",this.receiver,u,true);
                     }
-                }
+                //}
             } catch (IOException e)
             {throw new RuntimeException(e);}
         }
@@ -77,16 +83,16 @@ public class MThread extends Thread {
 
         }
         else if(this.type.equals("ListeningTCP")) {
-            try {nc.ListenTCP();} catch (IOException e) {throw new RuntimeException(e);}
+            try {NetworkController.ListenTCP();} catch (IOException e) {throw new RuntimeException(e);}
         }
         else if(this.type.equals("SendTCP")) {
-            try {nc.SendTCP(receiver,msg);} catch (IOException e) {throw new RuntimeException(e);}
+            try {NetworkController.SendTCP(receiver,msg);} catch (IOException e) {throw new RuntimeException(e);}
         }
         else if(this.type.equals("BroadcastUDP")){
-            try {nc.BroadcastUDP(sender,connection);} catch (IOException e) {throw new RuntimeException(e);}
+            try {NetworkController.BroadcastUDP(sender,connection);} catch (IOException e) {throw new RuntimeException(e);}
         }
         else if(this.type.equals("SendUDP")) {
-            try {nc.SendUDP(sender,receiver,connection);} catch (IOException e) {throw new RuntimeException(e);}
+            try {NetworkController.SendUDP(sender,receiver,connection);} catch (IOException e) {throw new RuntimeException(e);}
         }
         else { System.out.println("Type de thread inconnu");}
 
