@@ -53,7 +53,12 @@ public class DatabaseController {
 
 
     public static void addMessage(String remoteUser, String message,Boolean sender) throws SQLException {
-        String reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + sender + "')";
+        String reqSQL;
+        if(sender){
+            reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + 1 + "')";
+        } else {
+            reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + 0 + "')";
+        }
         Statement statement = connection.createStatement();
         statement.executeUpdate(reqSQL);
     }
