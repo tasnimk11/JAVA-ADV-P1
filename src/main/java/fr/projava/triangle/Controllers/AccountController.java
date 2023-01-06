@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class AccountController {
 
+    private static User user;
     /*
     * Gets Pseudo from authentication window
     * if pseudo new AND ip none existing then
@@ -38,10 +39,10 @@ public class AccountController {
         String message ="";
         String ip = InetAddress.getLocalHost().getHostAddress();
         if(DatabaseController.existingAccount(ip,pseudo) == "pseudo_exists") {
-            User u = new User   (InetAddress.getLocalHost(),1000,pseudo);
+            user = new User   (InetAddress.getLocalHost(),1000,pseudo);
             /*bc connection + fill contact book*/
-            if (ThreadController.validPseudo(u)){
-                ThreadController.BroadcastConnection(u,true);
+            if (ThreadController.validPseudo(user)){
+                ThreadController.BroadcastConnection(user,true);
                 message = "Successful Connection";
             } else {
                 message = "Unable to connect";
@@ -50,5 +51,13 @@ public class AccountController {
         } else
             message = "Account not found.";
         return message;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void closeConnection() {
+        //TODO : disconnect , close threads.. Sofiene
     }
 }
