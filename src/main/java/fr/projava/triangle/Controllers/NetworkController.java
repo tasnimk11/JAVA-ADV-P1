@@ -17,7 +17,7 @@ public class NetworkController {
     ;
 
     private int i=1108;
-    private static String BroadcastAddress="192.168.1.63";
+    private static String BroadcastAddress="10.1.255.255";
     public NetworkController() throws SocketException {
 
 

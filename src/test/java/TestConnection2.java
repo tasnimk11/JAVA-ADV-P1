@@ -18,7 +18,7 @@ public class TestConnection2 {
     }
 
     public static void main(String[] args) throws InterruptedException, UnknownHostException {
-        u=new User(InetAddress.getByName(adresse), 1104, "Sofiene");
+        u=new User(InetAddress.getByName(adresse), 1108, "Sofiene");
         ThreadController.LaunchListeningThreadUDP(u);
         Thread aux=new Thread();
         aux.sleep(2000);
