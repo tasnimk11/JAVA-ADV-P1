@@ -28,7 +28,7 @@ public class User {
         return port;
     }
     public void setPort(int Port) {
-        this.port=port;
+        this.port=Port;
     }
 
     public String getPseudo() {return pseudo;}
@@ -63,8 +63,50 @@ public class User {
         }
         return valid;
     }
+    public boolean checkChangedPseudo(String newPseudo) {
+        boolean valid=true;
+        for(int i = 0; i < this.getContactBook().size(); i++) {
+            User u1= (User) this.getContactBook().get(i);
+            if(newPseudo.equals(u1.getPseudo())){
+                valid=false;
+            }
+        }
+        return valid;
+    }
     public ArrayList getContactBook() {
         return this.ContactBook;
     }
 
+    //Change pseudo with the adress received
+    public void changePseudoByAdress(User u) {
+        int i=0;
+        boolean found=false;
+        while((i < this.getContactBook().size())&&(!found)) {
+            User u1= (User) this.getContactBook().get(i);
+            if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
+                u1.setPseudo(u.getPseudo());
+                found=true;
+            }
+            i++;
+        }
+    }
+    public boolean existingAddress(User u) {
+        int i=0;
+        boolean found=false;
+        while((i < this.getContactBook().size())&&(!found)) {
+            User u1= (User) this.getContactBook().get(i);
+            if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
+                found=true;
+            }
+            i++;
+        }
+        return found;
+
+    }
+    public void showConnectedUsers() {
+        for(int i = 0; i < this.getContactBook().size(); i++) {
+            User u1= (User) this.getContactBook().get(i);
+            System.out.print(u1.getPseudo() + " ");
+        }
+    }
 }

@@ -26,7 +26,6 @@ public class TestConnection2 {
             User u1= (User) u.getContactBook().get(i);
             System.out.print(u1.getPseudo() + " " + u1.getIPAddress());
         }
-
     }
 
 }

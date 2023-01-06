@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 
 public class TestTCP {
     public static void main(String[] args) throws IOException {
-        User u=new User(InetAddress.getByName("192.168.1.40"), 1234, "Sofiene");
+        User u=new User(InetAddress.getByName("192.168.1.63"), 1234, "Sofiene");
         NetworkController.SendTCP(u,"Salut");
     }
 }

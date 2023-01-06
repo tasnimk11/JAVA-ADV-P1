@@ -18,15 +18,10 @@ public class TestConnection  {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
-
         User u=new User(InetAddress.getByName(adresse), 1108, "Sofiene");
-        System.out.println(u.getIPAddress().toString());
         if(ThreadController.validPseudo(u)) {ThreadController.BroadcastConnection(u,true);}
         else{System.out.println("Choose another pseudo");}
-        for(int i = 0; i < u.getContactBook().size(); i++) {
-            User u1= (User) u.getContactBook().get(i);
-            System.out.print(u1.getPseudo() + " " + u1.getIPAddress());
-        }
+        u.showConnectedUsers();
         System.out.println("\n Initiatiating disconnection");
         Thread aux=new Thread();
         aux.sleep(10000);

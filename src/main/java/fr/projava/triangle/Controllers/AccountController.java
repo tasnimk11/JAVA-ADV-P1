@@ -51,8 +51,20 @@ public class AccountController {
             message = "Account not found.";
         return message;
     }
-    /*public static void disconnect() throws UnknownHostException {
+    public static void disconnect() throws UnknownHostException {
         ThreadController.BroadcastDisconnection(u);
-        NetworkController.CloseListenUDP();
-    }*/
+        //NetworkController.CloseListenUDP();
+    }
+
+    //COMMENT ACCEDER AU USER
+    public static void changePseudo(String pseudo) {
+        if(u.checkChangedPseudo(pseudo)) {
+            u.setPseudo(pseudo);
+            ThreadController.BroadcastConnection(u,true);
+        }
+        else {
+            //A REVOIR MESSAGE
+            System.out.println("Pseudo already taken");
+        }
+    }
 }

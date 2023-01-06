@@ -1,8 +1,5 @@
 package fr.projava.triangle.Models;
-
-//A FAIRE CONTINUER LA PHASE DE CONNEXION
 import fr.projava.triangle.Controllers.NetworkController;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -75,17 +72,21 @@ public class MThread extends Thread {
                     }
                     else {
                         if(state.equals("1")) {
-                            System.out.println("Adding "+ u.getPseudo()+"to contact Book");
-                            this.receiver.addUserToContactBook(u);
+                            //Existing adress in Contact Book => Changing Pseudo
+                            if(this.receiver.existingAddress(u)) {this.receiver.changePseudoByAdress(u);
+                            System.out.println("Update of pseudo "+u.getPseudo());
+                            }
+                            else {
+                                System.out.println("Adding " + u.getPseudo() + "to contact Book");
+                                this.receiver.addUserToContactBook(u);
+                            }
                         }
                         else{
                             //LAUNCH A THREAD SEND UDP
                             System.out.println("Sending coordinates to "+ u.getPseudo() +"from " +this.receiver.getPseudo());
                             new MThread("SendUDP",this.receiver,u,true);
                         }
-
                     }
-
                 }
             } catch (IOException e)
             {throw new RuntimeException(e);}
@@ -94,7 +95,15 @@ public class MThread extends Thread {
 
         }
         else if(this.type.equals("ListeningTCP")) {
-            try {NetworkController.ListenTCP();} catch (IOException e) {throw new RuntimeException(e);}
+            try {
+                while(true){
+                String msg=NetworkController.ListenTCP(this.receiver.getPort());
+                String [] analyseMsg=msg.split("-");
+                String message=analyseMsg[0];
+                String AdrIP=analyseMsg[1];
+                //TO DO RECEIVE MESSAGE CONVERSATION CONTROLLER
+
+                }} catch (IOException e) {throw new RuntimeException(e);}
         }
         else if(this.type.equals("SendTCP")) {
             try {NetworkController.SendTCP(receiver,msg);} catch (IOException e) {throw new RuntimeException(e);}
@@ -106,5 +115,4 @@ public class MThread extends Thread {
             try {NetworkController.SendUDP(sender,receiver,connection);} catch (IOException e) {throw new RuntimeException(e);}
         }
         else { System.out.println("Type de thread inconnu");}
-
 }}

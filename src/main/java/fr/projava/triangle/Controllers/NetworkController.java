@@ -72,20 +72,20 @@ public class NetworkController {
         ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
         PrintWriter writer = new PrintWriter(out, true);
         writer.println(msg);
-
-
     }
-    public static void ListenTCP() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1234);
+    public static String ListenTCP(int port) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(port);
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
         BufferedReader in = new BufferedReader(isr);
-        String greeting = in.readLine();
-        System.out.println(greeting);
+        String msg = in.readLine();
+        System.out.println(msg);
         InetSocketAddress socketAddress = (InetSocketAddress) clientSocket.getRemoteSocketAddress();
         String clientIpAddress = socketAddress.getAddress().getHostAddress();
-
+        System.out.println("Sent by"+clientIpAddress);
+        msg=msg+"-"+clientIpAddress;
+        return msg;
     }
 
 }
