@@ -57,7 +57,7 @@ public class AccountController {
         return user;
     }
 
-    public static void closeConnection() {
-        //TODO : disconnect , close threads.. Sofiene
+    public static void closeConnection() throws UnknownHostException {
+        ThreadController.BroadcastDisconnection(user);
     }
 }

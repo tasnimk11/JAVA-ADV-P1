@@ -75,8 +75,6 @@ public class AuthWindow extends JFrame implements ActionListener {
             throw new RuntimeException(ex);
         } catch (SQLException | InterruptedException ex) {
             throw new RuntimeException(ex);
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
         }
 
     }

@@ -51,7 +51,7 @@ public class ChatWindowController {
 
     public void sendMessage(MouseEvent mouseEvent) throws SQLException {
         if (!message.getText().isEmpty()) {
-            ConversationController.sendMessage(ip1,message.getText());
+            ConversationController.sendMessage(user,message.getText());
             //TODO : Message format : Time, Pseudo, Text, Side to right
             lstHistory.getItems().add(">> " + message.getText());
             message.clear();

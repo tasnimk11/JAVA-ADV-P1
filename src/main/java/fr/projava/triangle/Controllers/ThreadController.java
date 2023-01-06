@@ -7,23 +7,31 @@ import java.net.UnknownHostException;
 public class ThreadController {
     static MThread ListenerUDP;
     static MThread ListenerTCP;
+
     public ThreadController() {}
+
     public static void BroadcastConnection(User sender, boolean connection) {
         new MThread("BroadcastUDP",sender , connection);
     }
+
     public static void BroadcastDisconnection(User sender) throws UnknownHostException {
         sender.setIPAddress(InetAddress.getByName("0.0.0.0"));
         sender.setPort(0);
         new MThread("BroadcastUDP",sender , false);
         StopListeningThreadUDP();
+        StopListeningThreadTCP();
     }
 
     public static void LaunchListeningThreadUDP(User receiver) {
         ListenerUDP=new MThread("ListeningUDP",receiver);
     }
+
     public static void StopListeningThreadUDP(){ListenerUDP.stop();}
+
     public void LaunchListeningThreadTCP(User receiver) {ListenerTCP=new MThread("ListeningTCP",receiver);}
+
     public static void StopListeningThreadTCP(){ListenerTCP.stop();}
+
     public static boolean validPseudo(User u) throws InterruptedException {
         LaunchListeningThreadUDP(u);
         BroadcastConnection(u,false);
