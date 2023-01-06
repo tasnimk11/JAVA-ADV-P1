@@ -1,6 +1,8 @@
 package fr.projava.triangle.Controllers;
 
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseController {
     static Connection connection = null;
@@ -28,6 +30,7 @@ public class DatabaseController {
         }
 
     }
+
     public static String existingAccount(String ip, String pseudo) throws SQLException {
         String reqSQL="SELECT * " +
                 "FROM users " +
@@ -48,6 +51,31 @@ public class DatabaseController {
         statement.executeUpdate(reqSQL);
     }
 
+
+    public static void addMessage(String remoteUser, String message,Boolean sender) throws SQLException {
+        String reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + sender + "')";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(reqSQL);
+    }
+
+
+    public static ArrayList<String> loadHistory(String remoteUser) throws SQLException {
+        ArrayList<String> h = new ArrayList<>();
+        String reqSQL="SELECT * " +
+                "FROM chat_history " +
+                "WHERE Remote_User='" + remoteUser + "'";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(reqSQL);
+        while(rs.next()){
+            if (rs.getBoolean("Sender")){
+                h.add(">> " + rs.getString("Message"));
+            } else {
+                h.add("<< " + rs.getString("Message"));
+            }
+
+        }
+        return h;
+    }
 
 
 }
