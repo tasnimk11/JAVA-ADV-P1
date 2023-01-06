@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.projava.triangle.Controllers.ChatWindowController">
    <children>
@@ -18,7 +19,6 @@
                   <Image url="@images/bg2.png" />
                </image>
             </ImageView>
-            <ListView layoutX="66.0" layoutY="46.0" prefHeight="266.0" prefWidth="265.0" />
             <AnchorPane layoutY="429.0" prefHeight="23.0" prefWidth="779.0" style="-fx-background-color: #000000;" />
             <Button fx:id="btnDisconnect" layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#disconnect" style="-fx-background-color: transparent;">
                <graphic>
@@ -41,7 +41,8 @@
             </Button>
             <TextArea fx:id="message" layoutX="390.0" layoutY="360.0" prefHeight="45.0" prefWidth="278.0" />
             <ListView fx:id="lstHistory" layoutX="372.0" layoutY="46.0" prefHeight="307.0" prefWidth="383.0" />
-            <Button fx:id="btnUser" layoutX="166.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#loadHistory" text="User X" />
+            <VBox fx:id="vboxConnectedUsers" layoutX="66.0" layoutY="38.0" prefHeight="290.0" prefWidth="267.0" style="-fx-background-color: #FFFFFF;" />
+            <Button fx:id="btnShowConnected" layoutX="150.0" mnemonicParsing="false" onMouseClicked="#showConnectedUsers" text="connected?" />
          </children>
       </AnchorPane>
    </children>

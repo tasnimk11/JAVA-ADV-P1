@@ -13,7 +13,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
@@ -28,8 +27,6 @@ public class AuthWindowController {
     @FXML
     private Label returnMessage;
 
-    private Stage stage;
-    private Scene scene;
     private User user;
 
     public void signIn(MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
@@ -55,8 +52,8 @@ public class AuthWindowController {
         Parent root = loader.load();
         ChatWindowController cwc = loader.getController();
         cwc.setUser(user);
-        stage =(Stage)((Node) mouseEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }

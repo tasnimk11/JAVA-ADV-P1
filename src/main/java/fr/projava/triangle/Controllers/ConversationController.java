@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class ConversationController {
     public static void sendMessage(User user, String message) throws SQLException {
-        //Network controller : send TCP
-        //TODO
-        ThreadController.SendTCP(user,message);
+        //TODO : De comment
+        // Network controller : send TCP
+        //ThreadController.SendTCP(user,message);
 
         //DB controller : add to DB
-        DatabaseController.addMessage(remoteIP,message, true);
+        DatabaseController.addMessage(user.getIPAddress().getHostAddress(),message, true);
     }
 
     public static void receiveMessage(String remoteIP, String message) throws SQLException {
