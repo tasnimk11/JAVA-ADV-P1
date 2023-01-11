@@ -48,6 +48,9 @@ public class ChatWindowController {
     private Button btnShowConnected;
 
 
+    /*
+    TODO : take off testing options + test for real connected users
+     */
     public void setUser(User user) throws UnknownHostException {
         this.user = user;
         lblPseudo.setText(this.user.getPseudo());
@@ -121,6 +124,10 @@ public class ChatWindowController {
         stage.show();
     }
 
+    /*
+    * TODO : take off test examples and load REALLY connected users
+    *
+     */
     public void showConnectedUsers(MouseEvent mouseEvent){
         vboxConnectedUsers.getChildren().clear();
         ArrayList<User> connectedUsers = user.getContactBook();

@@ -20,12 +20,8 @@ public class NetworkController {
     private static String BroadcastAddress="10.1.255.255";
     public NetworkController() throws SocketException {
 
-
-
     }
-    public void setBroadcastAdress(String BroadcastAddress) {
-        this.BroadcastAddress=BroadcastAddress;
-    }
+
     public static void BroadcastUDP(User u, boolean connection) throws IOException {
         int cnx;
         if (connection)

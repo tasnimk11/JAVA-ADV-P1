@@ -1,6 +1,7 @@
 package fr.projava.triangle;
 
 import fr.projava.triangle.Controllers.DatabaseController;
+import fr.projava.triangle.Controllers.NetworkController;
 import fr.projava.triangle.Controllers.ThreadController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 
 public class mainApp extends Application {
@@ -30,7 +33,7 @@ public class mainApp extends Application {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch();
     }
 }
