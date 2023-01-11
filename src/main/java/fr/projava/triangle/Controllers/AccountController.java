@@ -2,9 +2,14 @@ package fr.projava.triangle.Controllers;
 
 
 import fr.projava.triangle.Models.User;
+
+import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 
 public class AccountController {
@@ -35,15 +40,22 @@ public class AccountController {
     * if account doesn't exist
     *   return error message
     * */
-    public static String connectToAccount(String pseudo) throws UnknownHostException, SQLException, InterruptedException {
+    public static String connectToAccount(String pseudo) throws IOException, SQLException, InterruptedException {
         String message ="";
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        if(DatabaseController.existingAccount(ip,pseudo) == "pseudo_exists") {
-            user = new User   (InetAddress.getLocalHost(),1000,pseudo);
+        if(DatabaseController.existingAccount("10.1.5.229",pseudo) == "pseudo_exists") {
+            user = new User(InetAddress.getByName("10.1.5.229"),1108,pseudo);
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
+
+                System.out.println("______________________ ");
+                System.out.println("CONNECTED USERS : "+ user.getPseudo());
+                user.showConnectedUsers();
+                System.out.println("______________________ ");
+
                 ThreadController.BroadcastConnection(user,true);
+
                 message = "Successful Connection";
+                ThreadController.LaunchListeningThreadTCP(user);
             } else {
                 message = "Unable to connect";
             };
@@ -57,6 +69,17 @@ public class AccountController {
         return user;
     }
 
+    public static void changePseudo(String pseudo){
+        if(user.checkChangedPseudo("SofieneNewPseudo")) {
+            user.setPseudo("SofieneNewPseudo");
+            ThreadController.BroadcastConnection(user,true);
+        }
+        else {
+            //A REVOIR MESSAGE
+            System.out.println("Pseudo already taken");
+        }
+    }
+    
     public static void closeConnection() throws UnknownHostException {
         ThreadController.BroadcastDisconnection(user);
     }

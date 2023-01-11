@@ -77,8 +77,8 @@ public class User {
         return this.ContactBook;
     }
 
-    //Change pseudo with the adress received
-    public void changePseudoByAdress(User u) {
+    //Change pseudo with the address received
+    public void changePseudoByAddress(User u) {
         int i=0;
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
@@ -106,7 +106,7 @@ public class User {
     public void showConnectedUsers() {
         for(int i = 0; i < this.getContactBook().size(); i++) {
             User u1= (User) this.getContactBook().get(i);
-            System.out.print(u1.getPseudo() + " ");
+            System.out.println(u1.getPseudo() + " ");
         }
     }
 }

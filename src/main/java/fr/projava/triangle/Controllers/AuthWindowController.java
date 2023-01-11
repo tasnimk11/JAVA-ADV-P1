@@ -32,8 +32,10 @@ public class AuthWindowController {
     public void signIn(MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
         String p = pseudoInput.getText();
         String msg = AccountController.connectToAccount(p);
-        user = AccountController.getUser();
-
+        if(user!=null){
+            user = AccountController.getUser();
+            user.showConnectedUsers();
+        }
         if (msg == "Unable to connect" || msg == "Account not found.")
             returnMessage.setText(msg);
         else

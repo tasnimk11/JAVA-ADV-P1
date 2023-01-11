@@ -9,7 +9,16 @@ import java.net.UnknownHostException;
 public class TestConnection2 {
 
 
-    public static String adresse="192.168.1.63";
+    public static String adresse;
+
+    static {
+        try {
+            adresse = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
     ThreadController TC=new ThreadController();
     static User u;
 

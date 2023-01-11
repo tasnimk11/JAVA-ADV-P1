@@ -6,6 +6,7 @@ import fr.projava.triangle.Controllers.DatabaseController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
@@ -75,6 +76,8 @@ public class AuthWindow extends JFrame implements ActionListener {
             throw new RuntimeException(ex);
         } catch (SQLException | InterruptedException ex) {
             throw new RuntimeException(ex);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
 
     }

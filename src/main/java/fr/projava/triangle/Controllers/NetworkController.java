@@ -75,11 +75,11 @@ public class NetworkController {
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
         BufferedReader in = new BufferedReader(isr);
-        String msg = in.readLine();
+        String msg = in.readLine().substring(6);
         System.out.println(msg);
         InetSocketAddress socketAddress = (InetSocketAddress) clientSocket.getRemoteSocketAddress();
         String clientIpAddress = socketAddress.getAddress().getHostAddress();
-        System.out.println("Sent by"+clientIpAddress);
+        System.out.println("Sent by "+clientIpAddress);
         msg=msg+"-"+clientIpAddress;
         return msg;
     }

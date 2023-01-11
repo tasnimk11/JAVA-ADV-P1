@@ -7,7 +7,6 @@ import java.net.UnknownHostException;
 public class ThreadController {
     static MThread ListenerUDP;
     static MThread ListenerTCP;
-
     public ThreadController() {}
 
     public static void BroadcastConnection(User sender, boolean connection) {
@@ -28,7 +27,7 @@ public class ThreadController {
 
     public static void StopListeningThreadUDP(){ListenerUDP.stop();}
 
-    public void LaunchListeningThreadTCP(User receiver) {ListenerTCP=new MThread("ListeningTCP",receiver);}
+    public static void LaunchListeningThreadTCP(User receiver) {ListenerTCP=new MThread("ListeningTCP",receiver);}
 
     public static void StopListeningThreadTCP(){ListenerTCP.stop();}
 

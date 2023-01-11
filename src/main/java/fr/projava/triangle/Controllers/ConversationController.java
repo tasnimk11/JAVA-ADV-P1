@@ -9,7 +9,7 @@ public class ConversationController {
     public static void sendMessage(User user, String message) throws SQLException {
         //TODO : De comment
         // Network controller : send TCP
-        //ThreadController.SendTCP(user,message);
+        ThreadController.SendTCP(user,message);
 
         //DB controller : add to DB
         DatabaseController.addMessage(user.getIPAddress().getHostAddress(),message, true);

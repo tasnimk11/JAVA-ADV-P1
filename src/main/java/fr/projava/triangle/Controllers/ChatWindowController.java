@@ -64,6 +64,10 @@ public class ChatWindowController {
 
         user.addUserToContactBook(testUser1);
         user.addUserToContactBook(testUser2);
+        System.out.println("______________________ ");
+        System.out.println("CONNECTED USERS : ");
+        user.showConnectedUsers();
+        System.out.println("______________________ ");
 
     }
 

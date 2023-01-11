@@ -2,7 +2,6 @@ package fr.projava.triangle.Models;
 import fr.projava.triangle.Controllers.NetworkController;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class MThread extends Thread {
@@ -73,8 +72,8 @@ public class MThread extends Thread {
                     else if(this.receiver.getIPAddress().toString().equals(u.getIPAddress().toString())) {}
                     else {
                         if(state.equals("1")) {
-                            //Existing adress in Contact Book => Changing Pseudo
-                            if(this.receiver.existingAddress(u)) {this.receiver.changePseudoByAdress(u);
+                            //Existing address in Contact Book => Changing Pseudo
+                            if(this.receiver.existingAddress(u)) {this.receiver.changePseudoByAddress(u);
                             System.out.println("Update of pseudo "+u.getPseudo());
                             }
                             else {
@@ -102,7 +101,7 @@ public class MThread extends Thread {
                 String [] analyseMsg=msg.split("-");
                 String message=analyseMsg[0];
                 String AdrIP=analyseMsg[1];
-                //TO DO RECEIVE MESSAGE CONVERSATION CONTROLLER
+                //TODO RECEIVE MESSAGE CONVERSATION CONTROLLER
 
                 }} catch (IOException e) {throw new RuntimeException(e);}
         }
