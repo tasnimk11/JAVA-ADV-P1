@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import static java.lang.Thread.sleep;
 
 public class TestConnection  {
-    public static String adresse="10.1.5.53";
+    public static String adresse="10.1.5.20";
     static User u;
 
     public TestConnection() throws UnknownHostException {
@@ -22,6 +22,15 @@ public class TestConnection  {
         if(ThreadController.validPseudo(u)) {ThreadController.BroadcastConnection(u,true);}
         else{System.out.println("Choose another pseudo");}
         u.showConnectedUsers();
+        System.out.println("***Testing Change pseudo");
+        if(u.checkChangedPseudo("SofieneNewPseudo")) {
+            u.setPseudo("SofieneNewPseudo");
+            ThreadController.BroadcastConnection(u,true);
+        }
+        else {
+            //A REVOIR MESSAGE
+            System.out.println("Pseudo already taken");
+        }
         System.out.println("\n Initiatiating disconnection");
         Thread aux=new Thread();
         aux.sleep(10000);
