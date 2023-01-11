@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class mainApp extends Application {
         Parent root = FXMLLoader.load(mainApp.class.getResource("/AuthWindow.fxml"));
         Scene authScene = new Scene(root, 779, 450);
         stage.setTitle("Triangle");
+        //stage.getIcons().add(new Image("src/main/resources/images/logo.png"));
+        stage.getIcons().add(new Image(mainApp.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(authScene);
         stage.show();
 

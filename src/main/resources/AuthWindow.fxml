@@ -21,9 +21,9 @@
                 <Font name="Century Gothic" size="10.0" />
             </font>
         </TextField>
-        <Button fx:id="btnSignIn" layoutX="289.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#signIn" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: transparent;">
+        <Button fx:id="btnSignIn" layoutX="289.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#signIn" prefHeight="40.0" prefWidth="76.0" style="-fx-background-color: transparent;">
             <graphic>
-                <ImageView fitHeight="35.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="32.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@images/bt2.png" />
                     </image>
@@ -39,7 +39,7 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Label fx:id="returnMessage" alignment="CENTER" ellipsisString="" layoutX="325.0" layoutY="238.0" prefHeight="17.0" prefWidth="129.0" text="..." textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="returnMessage" alignment="CENTER" ellipsisString="" layoutX="325.0" layoutY="238.0" prefHeight="17.0" prefWidth="129.0" text="   " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Century Gothic Bold" size="10.0" />
          </font></Label>

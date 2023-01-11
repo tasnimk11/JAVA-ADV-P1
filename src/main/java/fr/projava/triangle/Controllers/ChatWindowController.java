@@ -1,5 +1,6 @@
 package fr.projava.triangle.Controllers;
 
+import fr.projava.triangle.Models.Message;
 import fr.projava.triangle.Models.User;
 import fr.projava.triangle.Models.UserObject;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -19,16 +21,18 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatWindowController {
 
+
+    @FXML
+    private Label lblPseudo;
     @FXML
     private Button btnSend;
     @FXML
     private TextArea message;
     @FXML
-    private ListView lstHistory = new ListView();
+    private VBox boxHistory;
     @FXML
     private Button btnDisconnect;
     @FXML
@@ -46,6 +50,7 @@ public class ChatWindowController {
 
     public void setUser(User user) throws UnknownHostException {
         this.user = user;
+        lblPseudo.setText(this.user.getPseudo());
         //ONLY FOR TEST
         String ip1 = "192.17.0.4";
         String ip2 = "195.17.0.4";
@@ -70,7 +75,8 @@ public class ChatWindowController {
         if (userSelected !=null){
             if (!message.getText().isEmpty()) {
                 ConversationController.sendMessage(userSelected.getUser(),message.getText());
-                lstHistory.getItems().add(user.getPseudo()+" >> " + message.getText());
+                Message msg = new Message(user.getPseudo()+" >> " + message.getText(),true);
+                boxHistory.getChildren().add(msg);
                 message.clear();
             }
         }
@@ -82,21 +88,22 @@ public class ChatWindowController {
     *   when User is selected
     *   History is loaded
     *
-    * TODO : Unsync  pseudo displayed
     */
-    public void loadHistory(String ip) throws SQLException {
-        lstHistory.getItems().clear();
-        //get all history : conversation history
+
+    private void loadHistory(String ip) throws SQLException {
+        boxHistory.getChildren().clear();
         ArrayList<String> h;
         h = ConversationController.loadHistory(ip);
-        //loop to add elements to list
         for (String s : h) {
             if (s.startsWith(">>")){ //Sender is this connected user
-                lstHistory.getItems().add(user.getPseudo() + " " +s);
+                Message msg = new Message(user.getPseudo() + " " +s,true);
+                boxHistory.getChildren().add(msg);
+                boxHistory.setSpacing(5);
             } else if (s.startsWith("<<")) { //Sender is selected user
-                lstHistory.getItems().add(userSelected.getUser().getPseudo() + " >> " + s.substring(2));
+                Message msg = new Message(userSelected.getUser().getPseudo() + " >> " + s.substring(2),false);
+                boxHistory.getChildren().add(msg);
+                boxHistory.setSpacing(5);
             }
-
         }
     }
 
@@ -115,18 +122,18 @@ public class ChatWindowController {
     }
 
     public void showConnectedUsers(MouseEvent mouseEvent){
-        List<User> connectedUsers = user.getContactBook();
+        vboxConnectedUsers.getChildren().clear();
+        ArrayList<User> connectedUsers = user.getContactBook();
         for(User u : connectedUsers){
-
             UserObject o = new UserObject(u);
             userSelected = o;
             vboxConnectedUsers.getChildren().add(o);
+            vboxConnectedUsers.setSpacing(10);
             o.setOnMouseClicked(
                 event -> {
                     try {
-                        loadHistory(o.getIP());
                         userSelected = o;
-
+                        loadHistory(o.getIP());
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -136,4 +143,7 @@ public class ChatWindowController {
         }
 
     }
+
+
 }
+

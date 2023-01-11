@@ -73,7 +73,7 @@ public class User {
         }
         return valid;
     }
-    public ArrayList getContactBook() {
+    public ArrayList<User> getContactBook() {
         return this.ContactBook;
     }
 
