@@ -80,6 +80,8 @@ public class MThread extends Thread {
                             else {
                                 System.out.println("Adding " + u.getPseudo() + "to contact Book");
                                 this.receiver.addUserToContactBook(u);
+                                System.out.println("...."+u.getPseudo()+"...."+this.receiver.getPseudo());
+                                this.receiver.showConnectedUsers();
                             }
                         }
                         else{

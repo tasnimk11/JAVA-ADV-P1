@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import static java.lang.Thread.sleep;
 
 public class TestConnection  {
-    public static String adresse="10.1.5.20";
+    public static String adresse="10.1.255.255";
     static User u;
 
     public TestConnection() throws UnknownHostException {

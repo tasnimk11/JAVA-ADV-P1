@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 public class TestConnection2 {
 
 
-    public static String adresse="192.168.1.63";
+    public static String adresse="10.1.5.228";
     ThreadController TC=new ThreadController();
     static User u;
 
@@ -24,7 +24,7 @@ public class TestConnection2 {
         aux.sleep(3000);
         for(int i = 0; i < u.getContactBook().size(); i++) {
             User u1= (User) u.getContactBook().get(i);
-            System.out.print(u1.getPseudo() + " " + u1.getIPAddress());
+            System.out.print("*****************"+u1.getPseudo() + " " + u1.getIPAddress());
         }
     }
 
