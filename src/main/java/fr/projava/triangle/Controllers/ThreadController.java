@@ -1,7 +1,10 @@
 package fr.projava.triangle.Controllers;
 import fr.projava.triangle.Models.MThread;
 import fr.projava.triangle.Models.User;
+
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class ThreadController {
@@ -13,12 +16,14 @@ public class ThreadController {
         new MThread("BroadcastUDP",sender , connection);
     }
 
-    public static void BroadcastDisconnection(User sender) throws UnknownHostException {
+    public static void BroadcastDisconnection(User sender) throws IOException {
         sender.setIPAddress(InetAddress.getByName("0.0.0.0"));
         sender.setPort(0);
         new MThread("BroadcastUDP",sender , false);
         StopListeningThreadUDP();
         StopListeningThreadTCP();
+        NetworkController.CloseListenUDP();
+        NetworkController.CloseListenTCP();
     }
 
     public static void LaunchListeningThreadUDP(User receiver) {
@@ -31,7 +36,8 @@ public class ThreadController {
 
     public static void StopListeningThreadTCP(){ListenerTCP.stop();}
 
-    public static boolean validPseudo(User u) throws InterruptedException {
+    public static boolean validPseudo(User u) throws InterruptedException, SocketException {
+        NetworkController.openSocketUDP();
         LaunchListeningThreadUDP(u);
         BroadcastConnection(u,false);
         Thread aux= new Thread();

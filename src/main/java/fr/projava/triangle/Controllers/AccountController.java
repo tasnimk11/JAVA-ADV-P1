@@ -44,18 +44,10 @@ public class AccountController {
         String message ="";
         if(DatabaseController.existingAccount(InetAddress.getLocalHost().getHostAddress(),pseudo) == "pseudo_exists") {
             user = new User(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()),1108,pseudo);
-            System.out.println("user pseudo " + user.getPseudo());
 
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
-
-                System.out.println("______________________ ");
-                System.out.println("CONNECTED USERS : ");
-                user.showConnectedUsers();
-                System.out.println("______________________ ");
-
                 ThreadController.BroadcastConnection(user,true);
-
                 message = "Successful Connection";
                 ThreadController.LaunchListeningThreadTCP(user);
             } else {
@@ -68,6 +60,8 @@ public class AccountController {
     }
 
     public static User getUser() {
+        System.out.println("[ACCOUNT CONTROLLER ] : USER " + user.getPseudo() );
+        user.showConnectedUsers();
         return user;
     }
 
@@ -82,7 +76,7 @@ public class AccountController {
         }
     }
     
-    public static void closeConnection() throws UnknownHostException {
+    public static void closeConnection() throws IOException {
         ThreadController.BroadcastDisconnection(user);
     }
 }

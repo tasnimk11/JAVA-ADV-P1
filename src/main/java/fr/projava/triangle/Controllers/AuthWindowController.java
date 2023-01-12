@@ -27,15 +27,20 @@ public class AuthWindowController {
     @FXML
     private Label returnMessage;
 
-    private User user;
+    private static User user;
 
     public void signIn(MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
         String p = pseudoInput.getText();
         String msg = AccountController.connectToAccount(p);
+        user = AccountController.getUser();
         if(user!=null){
-            user = AccountController.getUser();
+            System.out.println("______________________ ");
+            System.out.println("CONNECTED USERS : ");
             user.showConnectedUsers();
+            System.out.println("______________________ ");
         }
+
+
         if (msg == "Unable to connect" || msg == "Account not found.")
             returnMessage.setText(msg);
         else

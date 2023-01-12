@@ -53,21 +53,25 @@ public class ChatWindowController {
      */
     public void setUser(User user) throws UnknownHostException {
         this.user = user;
-        lblPseudo.setText(this.user.getPseudo());
-        //ONLY FOR TEST
-        String ip1 = "192.17.0.4";
-        String ip2 = "195.17.0.4";
-        String pseudo1 = "User1";
-        String pseudo2 = "User2";
-        User testUser1 = new User(InetAddress.getByName(ip1),8000,pseudo1);
-        User testUser2 = new User(InetAddress.getByName(ip2),8001,pseudo2);
+        if(user!=null) {
+            lblPseudo.setText(this.user.getPseudo());
+            //ONLY FOR TEST
+            String ip1 = "192.17.0.4";
+            String ip2 = "195.17.0.4";
+            String pseudo1 = "User1";
+            String pseudo2 = "User2";
+            User testUser1 = new User(InetAddress.getByName(ip1), 8000, pseudo1);
+            User testUser2 = new User(InetAddress.getByName(ip2), 8001, pseudo2);
 
-        user.addUserToContactBook(testUser1);
-        user.addUserToContactBook(testUser2);
-        System.out.println("______________________ ");
-        System.out.println("CONNECTED USERS : ");
-        user.showConnectedUsers();
-        System.out.println("______________________ ");
+            user.addUserToContactBook(testUser1);
+            user.addUserToContactBook(testUser2);
+            System.out.println("______________________ ");
+            System.out.println("CONNECTED USERS : ");
+            user.showConnectedUsers();
+            System.out.println("______________________ ");
+        } else {
+            System.out.println("[CHAT WINDOW] : USER NULLL");
+        }
 
     }
 

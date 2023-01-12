@@ -5,8 +5,9 @@ import java.net.*;
 
 public class NetworkController {
     private static DatagramSocket socket;
+    private static ServerSocket serverSocket;
 
-    static {
+    /*static {
         try {
             socket = new DatagramSocket(1108);
         } catch (SocketException e) {
@@ -14,7 +15,7 @@ public class NetworkController {
         }
     }
 
-    ;
+    ;*/
 
     private int i=1108;
     private static String BroadcastAddress="10.1.255.255";
@@ -51,6 +52,7 @@ public class NetworkController {
             socket.send(packet);
             socket.close();
     }
+    public static void openSocketUDP() throws SocketException {socket = new DatagramSocket(1108);}
     public static String ListenUDP() throws IOException {
         byte[] buffer = new byte[512];
         DatagramPacket response = new DatagramPacket(buffer, buffer.length);
@@ -70,6 +72,9 @@ public class NetworkController {
     public static void CloseListenUDP() {
         socket.close();
     }
+    public static void CloseListenTCP() throws IOException {
+        serverSocket.close();
+    }
 
     public static void SendTCP(User u, String msg) throws IOException {
         Socket link=new Socket(u.getIPAddress(),u.getPort());
@@ -78,7 +83,7 @@ public class NetworkController {
         writer.println(msg);
     }
     public static String ListenTCP(int port) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
@@ -89,6 +94,7 @@ public class NetworkController {
         String clientIpAddress = socketAddress.getAddress().getHostAddress();
         System.out.println("Sent by "+clientIpAddress);
         msg=msg+"-"+clientIpAddress;
+        clientSocket.close();
         return msg;
     }
 
