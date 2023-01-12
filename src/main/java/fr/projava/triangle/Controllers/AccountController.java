@@ -42,8 +42,10 @@ public class AccountController {
     * */
     public static String connectToAccount(String pseudo) throws IOException, SQLException, InterruptedException {
         String message ="";
-        if(DatabaseController.existingAccount("10.1.5.229",pseudo) == "pseudo_exists") {
-            user = new User(InetAddress.getByName("10.1.5.229"),1108,pseudo);
+        if(DatabaseController.existingAccount(InetAddress.getLocalHost().getHostAddress(),pseudo) == "pseudo_exists") {
+            user = new User(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()),1108,pseudo);
+            System.out.println("user pseudo " + user.getPseudo());
+
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
 

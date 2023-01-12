@@ -60,8 +60,8 @@ public class NetworkController {
         String reception = new String(response.getData());
         String [] analyseMsg=reception.split("-");
         String UserName=analyseMsg[0];
-        String Port=analyseMsg[1];
-        String cnx=analyseMsg[2];
+        String Port=analyseMsg[2];
+        String cnx=analyseMsg[3];
         reception=UserName+AdrIP2+Port+cnx;
         System.out.println(reception);
         return reception;
