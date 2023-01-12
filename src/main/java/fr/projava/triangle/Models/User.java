@@ -16,6 +16,10 @@ public class User {
         this.port = port;
         this.pseudo = pseudo;
     }
+    public User(int port, String pseudo) {
+        this.port=port;
+        this.pseudo=pseudo;
+    }
 
     public InetAddress getIPAddress() {
         return IPAddress;
