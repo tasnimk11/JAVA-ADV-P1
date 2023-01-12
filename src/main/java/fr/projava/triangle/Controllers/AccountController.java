@@ -50,7 +50,7 @@ public class AccountController {
             if (ThreadController.validPseudo(user)){
 
                 System.out.println("______________________ ");
-                System.out.println("CONNECTED USERS : "+ user.getPseudo());
+                System.out.println("CONNECTED USERS : ");
                 user.showConnectedUsers();
                 System.out.println("______________________ ");
 

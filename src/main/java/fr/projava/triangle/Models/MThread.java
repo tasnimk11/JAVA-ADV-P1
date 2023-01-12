@@ -64,11 +64,9 @@ public class MThread extends Thread {
                     String recpt=NetworkController.ListenUDP();
                     String [] analyseMsg=recpt.split("_");
                     String adr=analyseMsg[3];
-                    System.out.println("/////////Ceci est une fausse adresse"+adr);
                     String state=recpt.substring(recpt.lastIndexOf("_")+1,recpt.lastIndexOf("_")+2);
-                    System.out.println("THIS IS STATE"+ state);
                     User u = createOnlineUser(recpt);
-                    if ((u.getIPAddress().toString().equals("/0.0.0.0"))&&(u.getPort()==0)) {
+                    if ((adr.equals("/0.0.0.0"))&&(u.getPort()==0)) {
                         //REMOVE FROM ANNUAIRE
                         this.receiver.removeUserFromContactBook(u);
                         System.out.println("User "+u.getPseudo()+" removed from contact book succesfully!");
