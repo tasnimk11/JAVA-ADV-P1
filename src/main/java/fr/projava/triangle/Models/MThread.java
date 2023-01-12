@@ -44,7 +44,7 @@ public class MThread extends Thread {
      * LA CONFIRMATION EST DE LA FORME USERNAME/PORT/ADRESSE IP*/
 
     private User createOnlineUser(String recpt) throws UnknownHostException {
-        String [] analyseMsg=recpt.split("-");
+        String [] analyseMsg=recpt.split("_");
         String UserName=analyseMsg[0];
         String AdrIP=analyseMsg[1];
         String AdrIP2=AdrIP.substring(1);
@@ -62,10 +62,11 @@ public class MThread extends Thread {
             try {
                 while(true) {
                     String recpt=NetworkController.ListenUDP();
-                    String [] analyseMsg=recpt.split("-");
+                    String [] analyseMsg=recpt.split("_");
                     String adr=analyseMsg[3];
                     System.out.println("/////////Ceci est une fausse adresse"+adr);
-                    String state=recpt.substring(recpt.lastIndexOf("-")+1,recpt.lastIndexOf("-")+2);
+                    String state=recpt.substring(recpt.lastIndexOf("_")+1,recpt.lastIndexOf("_")+2);
+                    System.out.println("THIS IS STATE"+ state);
                     User u = createOnlineUser(recpt);
                     if ((u.getIPAddress().toString().equals("/0.0.0.0"))&&(u.getPort()==0)) {
                         //REMOVE FROM ANNUAIRE

@@ -28,7 +28,7 @@ public class NetworkController {
         {cnx=1;} else{cnx=0;}
         String bcMsg;
         try {
-            bcMsg = u.getPseudo() + "-" + u.getIPAddress() + "-" + u.getPort() + "-" + cnx;
+            bcMsg = u.getPseudo() + "_" + u.getIPAddress() + "_" + u.getPort() + "_" + cnx;
             byte[] buffer = bcMsg.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(BroadcastAddress), 1108);
             DatagramSocket socket = new DatagramSocket();
@@ -43,7 +43,7 @@ public class NetworkController {
     public static void SendUDP(User sender, User receiver, boolean connection) throws IOException {
             int cnx=0;
             if (connection) {cnx=1;}
-            String bcMsg = sender.getPseudo()+"-"+sender.getIPAddress()+"-"+sender.getPort()+"-"+cnx;
+            String bcMsg = sender.getPseudo()+"_"+sender.getIPAddress()+"_"+sender.getPort()+"_"+cnx;
             byte[] buffer = bcMsg.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIPAddress(), 1108);
             DatagramSocket socket = new DatagramSocket();
@@ -58,12 +58,12 @@ public class NetworkController {
         InetAddress address=response.getAddress();
         String AdrIP2=address.toString();
         String reception = new String(response.getData());
-        String [] analyseMsg=reception.split("-");
+        String [] analyseMsg=reception.split("_");
         String UserName=analyseMsg[0];
         String adr=analyseMsg[1];
         String Port=analyseMsg[2];
         String cnx=analyseMsg[3];
-        reception=UserName+"-"+AdrIP2+"-"+Port+"-"+adr+"-"+cnx;
+        reception=UserName+"_"+AdrIP2+"_"+Port+"_"+adr+"_"+cnx;
         System.out.println("this is the reception   "+reception);
         return reception;
     }
