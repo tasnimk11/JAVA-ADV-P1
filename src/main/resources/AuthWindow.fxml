@@ -39,9 +39,9 @@
                 </ImageView>
             </graphic>
         </Button>
-      <Label fx:id="returnMessage" alignment="CENTER" ellipsisString="" layoutX="325.0" layoutY="238.0" prefHeight="17.0" prefWidth="129.0" text="   " textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="returnMessage" alignment="CENTER" ellipsisString="" layoutX="325.0" layoutY="238.0" prefHeight="17.0" prefWidth="129.0" text="   " textAlignment="CENTER" textFill="#b1f558" wrapText="true">
          <font>
-            <Font name="Century Gothic Bold" size="10.0" />
+            <Font name="Arial Black" size="9.0" />
          </font></Label>
     </AnchorPane>
      <AnchorPane layoutY="437.0" prefHeight="20.0" prefWidth="779.0" style="-fx-background-color: #000000;" />

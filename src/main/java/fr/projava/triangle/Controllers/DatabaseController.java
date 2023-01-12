@@ -1,6 +1,8 @@
 package fr.projava.triangle.Controllers;
 
 
+import fr.projava.triangle.Models.Message;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -64,22 +66,27 @@ public class DatabaseController {
     }
 
 
-    public static ArrayList<String> loadHistory(String remoteUser) throws SQLException {
-        ArrayList<String> h = new ArrayList<>();
+    public static ArrayList<Message> loadHistory(String remoteUser) throws SQLException {
+        ArrayList<Message> h = new ArrayList<>();
         String reqSQL="SELECT * " +
                 "FROM chat_history " +
                 "WHERE Remote_User='" + remoteUser + "'";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(reqSQL);
         while(rs.next()){
-            if (rs.getBoolean("Sender")){
-                h.add(">> " + rs.getString("Message"));
-            } else {
-                h.add("<< " + rs.getString("Message"));
-            }
-
+                //h.add(new Message(rs.getBoolean("Sender"), rs.getString("Message"), rs.getDate("Sent_At")));
+                h.add(new Message(rs.getBoolean("Sender"), rs.getString("Message")));
         }
         return h;
+    }
+
+    public static void updateAccount(String ip, String newPseudo) throws SQLException {
+        String reqSQL= "UPDATE users " +
+                "SET  Pseudo='"+ newPseudo + "'" +
+                "WHERE IP_address='" + ip + "'";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(reqSQL);
+
     }
 
 

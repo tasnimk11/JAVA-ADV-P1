@@ -19,13 +19,13 @@
    <children>
       <AnchorPane prefHeight="330.0" prefWidth="600.0">
          <children>
-            <ImageView fitHeight="452.0" fitWidth="780.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="452.0" fitWidth="780.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/bg2.png" />
                </image>
             </ImageView>
-            <AnchorPane layoutY="429.0" prefHeight="23.0" prefWidth="779.0" style="-fx-background-color: #000000;" />
-            <Button fx:id="btnDisconnect" layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onMouseClicked="#disconnect" style="-fx-background-color: transparent;">
+            <AnchorPane layoutY="429.0" prefHeight="23.0" prefWidth="780.0" style="-fx-background-color: #000000;" />
+            <Button fx:id="btnDisconnect" layoutX="235.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#disconnect" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="88.0" onMouseClicked="#disconnect" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,8 +34,8 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField layoutX="219.0" layoutY="366.0" prefHeight="25.0" prefWidth="100.0" />
-            <Button fx:id="btnSend" layoutX="684.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#sendMessage" style="-fx-background-color: transparent;">
+            <TextField fx:id="txtNewPseudo" layoutX="60.0" layoutY="365.0" prefHeight="25.0" prefWidth="86.0" promptText="pseudo" />
+            <Button fx:id="btnSend" layoutX="697.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#sendMessage" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,10 +44,12 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextArea fx:id="message" layoutX="374.0" layoutY="360.0" prefHeight="43.0" prefWidth="294.0" promptText="Type your message." />
-            <VBox fx:id="vboxConnectedUsers" layoutX="63.0" layoutY="93.0" prefHeight="232.0" prefWidth="267.0" style="-fx-background-color: transparent; -fx-padding: 16;" />
-            <Button fx:id="btnShowConnected" layoutX="242.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#showConnectedUsers" text="connected?" />
-            <Label fx:id="lblPseudo" layoutX="76.0" layoutY="38.0" prefHeight="25.0" prefWidth="119.0" text="Pseudo" textAlignment="CENTER" underline="true">
+            <ScrollPane layoutX="51.0" layoutY="97.0" prefHeight="228.0" prefWidth="269.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+               <content>
+                  <VBox fx:id="vboxConnectedUsers" prefHeight="217.0" prefWidth="257.0" style="-fx-background-color: transparent; -fx-padding: 16;" />
+               </content>
+            </ScrollPane>
+            <Label fx:id="lblPseudo" layoutX="60.0" layoutY="35.0" prefHeight="25.0" prefWidth="119.0" text="Pseudo" textAlignment="CENTER" underline="true">
                <font>
                   <Font name="Century Gothic Bold" size="30.0" />
                </font>
@@ -68,11 +70,27 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <ScrollPane layoutX="368.0" layoutY="37.0" prefHeight="317.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <ScrollPane layoutX="355.0" layoutY="38.0" prefHeight="312.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent;">
                <content>
-                  <VBox fx:id="boxHistory" prefHeight="311.0" prefWidth="384.0" style="-fx-background-color: transparent;" />
+                  <VBox fx:id="boxHistory" prefHeight="309.0" prefWidth="384.0" style="-fx-background-color: transparent;" />
                </content>
             </ScrollPane>
+            <Button fx:id="btnShowConnected" layoutX="234.0" layoutY="365.0" mnemonicParsing="false" onMouseClicked="#showConnectedUsers" style="-fx-background-color: #eedce5;" text="connected?" />
+            <Button fx:id="btnChangePseudo" layoutX="155.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#changePseudo" prefHeight="33.0" prefWidth="26.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/btn_pen.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextArea fx:id="message" layoutX="364.0" layoutY="354.0" prefHeight="43.0" prefWidth="322.0" promptText="Type your message." />
+            <Label fx:id="lblErrorPseudo" layoutX="52.0" layoutY="411.0" prefHeight="17.0" prefWidth="205.0" text="   " textFill="#b1f558">
+               <font>
+                  <Font name="Arial Black" size="9.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

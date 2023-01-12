@@ -65,15 +65,20 @@ public class AccountController {
         return user;
     }
 
-    public static void changePseudo(String pseudo){
-        if(user.checkChangedPseudo("SofieneNewPseudo")) {
-            user.setPseudo("SofieneNewPseudo");
+    public static String changePseudo(String pseudo) throws SQLException {
+        String msg = "";
+        if(user.checkChangedPseudo(pseudo)) { //BC : if pseudo is already in use
+            user.setPseudo(pseudo);
+            //BC : new pseudo
             ThreadController.BroadcastConnection(user,true);
+            //Update user in DB
+            DatabaseController.updateAccount(user.getIPAddress().getHostAddress(),pseudo);
+            msg = "pseudo_ok" ;
         }
         else {
-            //A REVOIR MESSAGE
-            System.out.println("Pseudo already taken");
+            msg = "pseudo_taken";
         }
+        return msg;
     }
     
     public static void closeConnection() throws IOException {

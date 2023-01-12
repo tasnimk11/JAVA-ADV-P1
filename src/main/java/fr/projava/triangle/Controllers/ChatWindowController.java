@@ -1,6 +1,7 @@
 package fr.projava.triangle.Controllers;
 
 import fr.projava.triangle.Models.Message;
+import fr.projava.triangle.Models.MessageObject;
 import fr.projava.triangle.Models.User;
 import fr.projava.triangle.Models.UserObject;
 import javafx.fxml.FXML;
@@ -10,8 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -37,6 +38,12 @@ public class ChatWindowController {
     private Button btnDisconnect;
     @FXML
     private VBox vboxConnectedUsers;
+    @FXML
+    private Button btnChangePseudo;
+    @FXML
+    private TextField txtNewPseudo;
+    @FXML
+    private Label lblErrorPseudo;
     private User user;
     private UserObject userSelected;
 
@@ -65,28 +72,20 @@ public class ChatWindowController {
 
             user.addUserToContactBook(testUser1);
             user.addUserToContactBook(testUser2);
-            System.out.println("______________________ ");
-            System.out.println("CONNECTED USERS : ");
-            user.showConnectedUsers();
-            System.out.println("______________________ ");
         } else {
-            System.out.println("[CHAT WINDOW] : USER NULLL");
+            System.out.println("[CHAT WINDOW] : USER NULL");
         }
 
     }
 
     /*
-     * *************************************
-     */
-
-    /*
-    * TODO : Message format : Time, get back to line
+    * TODO : Message format : Time
     * */
     public void sendMessage(MouseEvent mouseEvent) throws SQLException {
         if (userSelected !=null){
             if (!message.getText().isEmpty()) {
                 ConversationController.sendMessage(userSelected.getUser(),message.getText());
-                Message msg = new Message(user.getPseudo()+" >> " + message.getText(),true);
+                MessageObject msg = new MessageObject(user.getPseudo()+" >> " + message.getText(),true);
                 boxHistory.getChildren().add(msg);
                 message.clear();
             }
@@ -98,23 +97,21 @@ public class ChatWindowController {
     * Load history :
     *   when User is selected
     *   History is loaded
-    *
+    *   TODO : Add Time message sent on to Screen
     */
-
     private void loadHistory(String ip) throws SQLException {
         boxHistory.getChildren().clear();
-        ArrayList<String> h;
+        ArrayList<Message> h;
         h = ConversationController.loadHistory(ip);
-        for (String s : h) {
-            if (s.startsWith(">>")){ //Sender is this connected user
-                Message msg = new Message(user.getPseudo() + " " +s,true);
-                boxHistory.getChildren().add(msg);
-                boxHistory.setSpacing(5);
-            } else if (s.startsWith("<<")) { //Sender is selected user
-                Message msg = new Message(userSelected.getUser().getPseudo() + " >> " + s.substring(2),false);
-                boxHistory.getChildren().add(msg);
-                boxHistory.setSpacing(5);
+        for (Message m : h) {
+            MessageObject msg;
+            if(m.isSender()) {//Sender is this connected user
+                msg = new MessageObject(user.getPseudo() + " >> " + m.getMessage(), true);
+            } else {
+                msg = new MessageObject(userSelected.getUser().getPseudo() + " >> " + m.getMessage(), false);
             }
+            boxHistory.getChildren().add(msg);
+            boxHistory.setSpacing(5);
         }
     }
 
@@ -148,6 +145,7 @@ public class ChatWindowController {
                 event -> {
                     try {
                         userSelected = o;
+                        o.readMessages();
                         loadHistory(o.getIP());
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
@@ -159,6 +157,18 @@ public class ChatWindowController {
 
     }
 
+    public void changePseudo(MouseEvent mouseEvent) throws SQLException {
+        lblErrorPseudo.setText("  ");
+        String msg = AccountController.changePseudo(txtNewPseudo.getText());
+        if (msg=="pseudo_ok"){
+            user.setPseudo(txtNewPseudo.getText());
+            lblPseudo.setText(this.user.getPseudo());
+            txtNewPseudo.clear();
+        } else {
+            lblErrorPseudo.setText("Pseudo in use.");
+        }
 
+
+    }
 }
 
