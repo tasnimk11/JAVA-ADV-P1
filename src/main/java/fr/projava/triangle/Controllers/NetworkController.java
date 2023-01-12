@@ -62,7 +62,7 @@ public class NetworkController {
         String UserName=analyseMsg[0];
         String Port=analyseMsg[2];
         String cnx=analyseMsg[3];
-        reception=UserName+AdrIP2+Port+cnx;
+        reception=UserName+"-"+AdrIP2+"-"+Port+"-"+cnx;
         System.out.println(reception);
         return reception;
     }
