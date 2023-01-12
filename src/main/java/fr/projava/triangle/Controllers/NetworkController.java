@@ -43,7 +43,7 @@ public class NetworkController {
     public static void SendUDP(User sender, User receiver, boolean connection) throws IOException {
             int cnx=0;
             if (connection) {cnx=1;}
-            String bcMsg = sender.getPseudo()+"-"+sender.getPort()+"-"+cnx;
+            String bcMsg = sender.getPseudo()+"-"+sender.getIPAddress()+sender.getPort()+"-"+cnx;
             byte[] buffer = bcMsg.getBytes();
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIPAddress(), 1108);
             DatagramSocket socket = new DatagramSocket();
