@@ -64,7 +64,7 @@ public class NetworkController {
         String Port=analyseMsg[2];
         String cnx=analyseMsg[3];
         reception=UserName+"-"+AdrIP2+"-"+Port+"-"+cnx+"-"+adr;
-        System.out.println(reception);
+        System.out.println("this is the reception   "+reception);
         return reception;
     }
     public static void CloseListenUDP() {

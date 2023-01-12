@@ -64,6 +64,7 @@ public class MThread extends Thread {
                     String recpt=NetworkController.ListenUDP();
                     String [] analyseMsg=recpt.split("-");
                     String adr=analyseMsg[4];
+                    System.out.println("/////////Ceci est une fausse adresse"+adr);
                     String state=recpt.substring(recpt.lastIndexOf("-")+1,recpt.lastIndexOf("-")+2);
                     User u = createOnlineUser(recpt);
                     if ((u.getIPAddress().toString().equals("/0.0.0.0"))&&(u.getPort()==0)) {
@@ -71,7 +72,7 @@ public class MThread extends Thread {
                         this.receiver.removeUserFromContactBook(u);
                         System.out.println("User "+u.getPseudo()+" removed from contact book succesfully!");
                     }
-                    else if(this.receiver.getIPAddress().toString().equals(adr)) {}
+                    else if(this.receiver.getIPAddress().toString().equals(adr)) { System.out.println("I am here");}
                     else {
                         if(state.equals("1")) {
                             //Existing address in Contact Book => Changing Pseudo
