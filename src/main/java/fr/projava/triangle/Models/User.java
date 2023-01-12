@@ -8,8 +8,8 @@ public class User {
     private InetAddress IPAddress;
     private int port;
     private String pseudo;
-    private boolean connected= false;
-    private ArrayList ContactBook=new ArrayList<>();
+    private final boolean connected= false;
+    private final ArrayList<User> ContactBook=new ArrayList<>();
 
     public User(InetAddress ipAddress, int port, String pseudo) {
         IPAddress = ipAddress;
@@ -20,8 +20,8 @@ public class User {
     public InetAddress getIPAddress() {
         return IPAddress;
     }
-    public void setIPAddress(InetAddress ipAdress) {
-        this.IPAddress=ipAdress;
+    public void setIPAddress(InetAddress ipAddress) {
+        this.IPAddress=ipAddress;
     }
 
     public int getPort() {
@@ -46,7 +46,7 @@ public class User {
         int i=0;
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
-            User u1= (User) this.getContactBook().get(i);
+            User u1= this.getContactBook().get(i);
             if (toRmv.getPseudo().equals((u1.getPseudo()))) {
                 this.ContactBook.remove(i);
                 found=true;
@@ -66,9 +66,10 @@ public class User {
     public boolean checkChangedPseudo(String newPseudo) {
         boolean valid=true;
         for(int i = 0; i < this.getContactBook().size(); i++) {
-            User u1= (User) this.getContactBook().get(i);
-            if(newPseudo.equals(u1.getPseudo())){
-                valid=false;
+            User u1= this.getContactBook().get(i);
+            if (newPseudo.equals(u1.getPseudo())) {
+                valid = false;
+                break;
             }
         }
         return valid;
@@ -82,7 +83,7 @@ public class User {
         int i=0;
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
-            User u1= (User) this.getContactBook().get(i);
+            User u1= this.getContactBook().get(i);
             if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
                 u1.setPseudo(u.getPseudo());
                 found=true;
@@ -94,7 +95,7 @@ public class User {
         int i=0;
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
-            User u1= (User) this.getContactBook().get(i);
+            User u1= this.getContactBook().get(i);
             if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
                 found=true;
             }
@@ -105,7 +106,7 @@ public class User {
     }
     public void showConnectedUsers() {
         for(int i = 0; i < this.getContactBook().size(); i++) {
-            User u1= (User) this.getContactBook().get(i);
+            User u1= this.getContactBook().get(i);
             System.out.println(u1.getPseudo() + " ");
         }
     }

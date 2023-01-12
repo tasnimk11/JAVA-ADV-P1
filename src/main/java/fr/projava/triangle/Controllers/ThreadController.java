@@ -1,11 +1,11 @@
 package fr.projava.triangle.Controllers;
+
 import fr.projava.triangle.Models.MThread;
 import fr.projava.triangle.Models.User;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 
 public class ThreadController {
     static MThread ListenerUDP;
@@ -41,7 +41,7 @@ public class ThreadController {
         LaunchListeningThreadUDP(u);
         BroadcastConnection(u,false);
         Thread aux= new Thread();
-        aux.sleep(1000);
+        Thread.sleep(1000);
         return u.checkValidPseudo();
     }
     public static void SendTCP(User receiver, String msg) { new MThread("SendTCP",receiver,msg);}

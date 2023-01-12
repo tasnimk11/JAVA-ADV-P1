@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DatabaseController {
     static Connection connection = null;
-    public DatabaseController() throws SQLException {
+    public DatabaseController() {
         try {
             String url = "jdbc:sqlite:src/main/java/fr/projava/triangle/db/triangle.db";
             connection = DriverManager.getConnection(url);

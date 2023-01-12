@@ -4,12 +4,9 @@ package fr.projava.triangle.Controllers;
 import fr.projava.triangle.Models.User;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
-import java.util.Enumeration;
 
 
 public class AccountController {
@@ -23,9 +20,9 @@ public class AccountController {
     *   don't add, and account exists
     * */
     public static String newAccount(String pseudo) throws UnknownHostException, SQLException {
-        String message ="";
+        String message;
         String ip = InetAddress.getLocalHost().getHostAddress();
-        if(DatabaseController.existingAccount(ip,pseudo) == "pseudo_new" && DatabaseController.existingIP(ip)=="ip_new") {
+        if(DatabaseController.existingAccount(ip, pseudo).equals("pseudo_new") && DatabaseController.existingIP(ip).equals("ip_new")) {
             DatabaseController.addUser(ip, pseudo);
             message = "Pseudo created successfully !";
         } else
@@ -41,8 +38,8 @@ public class AccountController {
     *   return error message
     * */
     public static String connectToAccount(String pseudo) throws IOException, SQLException, InterruptedException {
-        String message ="";
-        if(DatabaseController.existingAccount(InetAddress.getLocalHost().getHostAddress(),pseudo) == "pseudo_exists") {
+        String message;
+        if(DatabaseController.existingAccount(InetAddress.getLocalHost().getHostAddress(), pseudo).equals("pseudo_exists")) {
             user = new User(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()),1108,pseudo);
 
             /*bc connection + fill contact book*/
@@ -52,7 +49,7 @@ public class AccountController {
                 ThreadController.LaunchListeningThreadTCP(user);
             } else {
                 message = "Unable to connect";
-            };
+            }
 
         } else
             message = "Account not found.";
@@ -66,7 +63,7 @@ public class AccountController {
     }
 
     public static String changePseudo(String pseudo) throws SQLException {
-        String msg = "";
+        String msg;
         if(user.checkChangedPseudo(pseudo)) { //BC : if pseudo is already in use
             user.setPseudo(pseudo);
             //BC : new pseudo

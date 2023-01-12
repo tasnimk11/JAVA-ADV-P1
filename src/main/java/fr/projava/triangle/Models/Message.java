@@ -1,11 +1,10 @@
 package fr.projava.triangle.Models;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class Message {
-    private boolean sender;
-    private String message;
+    private final boolean sender;
+    private final String message;
     private Date sent_at;
 
     public Message(boolean sender, String message, Date sent_at) {

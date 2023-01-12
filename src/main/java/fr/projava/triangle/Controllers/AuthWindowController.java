@@ -41,7 +41,7 @@ public class AuthWindowController {
         }
 
 
-        if (msg == "Unable to connect" || msg == "Account not found.")
+        if (msg.equals("Unable to connect") || msg.equals("Account not found."))
             returnMessage.setText(msg);
         else
             goToChat(mouseEvent);

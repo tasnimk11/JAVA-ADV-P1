@@ -17,8 +17,6 @@ public class NetworkController {
 
     ;*/
 
-    private int i=1108;
-    private static String BroadcastAddress="10.1.255.255";
     public NetworkController() throws SocketException {
 
     }
@@ -31,7 +29,8 @@ public class NetworkController {
         try {
             bcMsg = u.getPseudo() + "_" + u.getIPAddress() + "_" + u.getPort() + "_" + cnx;
             byte[] buffer = bcMsg.getBytes();
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(BroadcastAddress), 1108);
+            String broadcastAddress = "10.1.255.255";
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(broadcastAddress), 1108);
             DatagramSocket socket = new DatagramSocket();
             socket.setBroadcast(true);
             socket.send(packet);

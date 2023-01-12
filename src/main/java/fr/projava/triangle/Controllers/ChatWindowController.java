@@ -160,7 +160,7 @@ public class ChatWindowController {
     public void changePseudo(MouseEvent mouseEvent) throws SQLException {
         lblErrorPseudo.setText("  ");
         String msg = AccountController.changePseudo(txtNewPseudo.getText());
-        if (msg=="pseudo_ok"){
+        if (msg.equals("pseudo_ok")){
             user.setPseudo(txtNewPseudo.getText());
             lblPseudo.setText(this.user.getPseudo());
             txtNewPseudo.clear();
