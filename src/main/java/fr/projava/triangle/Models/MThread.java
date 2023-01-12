@@ -63,7 +63,7 @@ public class MThread extends Thread {
                 while(true) {
                     String recpt=NetworkController.ListenUDP();
                     String [] analyseMsg=recpt.split("-");
-                    String adr=analyseMsg[4];
+                    String adr=analyseMsg[3];
                     System.out.println("/////////Ceci est une fausse adresse"+adr);
                     String state=recpt.substring(recpt.lastIndexOf("-")+1,recpt.lastIndexOf("-")+2);
                     User u = createOnlineUser(recpt);
