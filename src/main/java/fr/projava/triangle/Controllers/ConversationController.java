@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ConversationController {
     public static void sendMessage(User user, String message) throws SQLException {
-        ThreadController.SendTCP(user,message);
+        ThreadController.sendTCP(user,message);
         //DB controller : add to DB
         DatabaseController.addMessage(user.getIPAddress().getHostAddress(),message, true);
     }

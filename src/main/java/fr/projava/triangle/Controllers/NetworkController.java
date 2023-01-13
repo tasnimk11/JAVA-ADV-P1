@@ -7,21 +7,13 @@ public class NetworkController {
     private static DatagramSocket socket;
     private static ServerSocket serverSocket;
 
-    /*static {
-        try {
-            socket = new DatagramSocket(1108);
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    ;*/
-
-    public NetworkController() throws SocketException {
-
-    }
-
-    public static void BroadcastUDP(User u, boolean connection) throws IOException {
+    /*
+    *************************
+    * UDP
+    *************************
+    * */
+    public static void openSocketUDP() throws SocketException {socket = new DatagramSocket(1108);}
+    public static void broadcastUDP(User u, boolean connection) throws IOException {
         int cnx;
         if (connection)
         {cnx=1;} else{cnx=0;}
@@ -40,7 +32,7 @@ public class NetworkController {
             System.out.println("NullPointerException thrown!");
         }
     }
-    public static void SendUDP(User sender, User receiver, boolean connection) throws IOException {
+    public static void sendUDP(User sender, User receiver, boolean connection) throws IOException {
             int cnx=0;
             if (connection) {cnx=1;}
             String bcMsg = sender.getPseudo()+"_"+sender.getIPAddress()+"_"+sender.getPort()+"_"+cnx;
@@ -51,8 +43,7 @@ public class NetworkController {
             socket.send(packet);
             socket.close();
     }
-    public static void openSocketUDP() throws SocketException {socket = new DatagramSocket(1108);}
-    public static String ListenUDP() throws IOException {
+     public static String listenUDP() throws IOException {
         byte[] buffer = new byte[512];
         DatagramPacket response = new DatagramPacket(buffer, buffer.length);
         socket.receive(response);
@@ -68,20 +59,22 @@ public class NetworkController {
         System.out.println("this is the reception   "+reception);
         return reception;
     }
-    public static void CloseListenUDP() {
+    public static void closeListenUDP() {
         socket.close();
     }
-    public static void CloseListenTCP() throws IOException {
-        serverSocket.close();
-    }
 
-    public static void SendTCP(User u, String msg) throws IOException {
+    /*
+     *************************
+     * TCP
+     *************************
+     * */
+    public static void sendTCP(User u, String msg) throws IOException {
         Socket link=new Socket(u.getIPAddress(),u.getPort());
         ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
         PrintWriter writer = new PrintWriter(out, true);
         writer.println(msg);
     }
-    public static String ListenTCP(int port) throws IOException {
+    public static String listenTCP(int port) throws IOException {
         serverSocket = new ServerSocket(port);
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -95,6 +88,9 @@ public class NetworkController {
         msg=msg+"-"+clientIpAddress;
         clientSocket.close();
         return msg;
+    }
+    public static void closeListenTCP() throws IOException {
+        serverSocket.close();
     }
 
 }

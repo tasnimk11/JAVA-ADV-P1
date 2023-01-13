@@ -44,9 +44,9 @@ public class AccountController {
 
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
-                ThreadController.BroadcastConnection(user,true);
+                ThreadController.broadcastConnection(user,true);
                 message = "Successful Connection";
-                ThreadController.LaunchListeningThreadTCP(user);
+                ThreadController.launchListeningThreadTCP(user);
             } else {
                 message = "Unable to connect";
             }
@@ -67,7 +67,7 @@ public class AccountController {
         if(user.checkChangedPseudo(pseudo)) { //BC : if pseudo is already in use
             user.setPseudo(pseudo);
             //BC : new pseudo
-            ThreadController.BroadcastConnection(user,true);
+            ThreadController.broadcastConnection(user,true);
             //Update user in DB
             DatabaseController.updateAccount(user.getIPAddress().getHostAddress(),pseudo);
             msg = "pseudo_ok" ;
@@ -79,6 +79,6 @@ public class AccountController {
     }
     
     public static void closeConnection() throws IOException {
-        ThreadController.BroadcastDisconnection(user);
+        ThreadController.broadcastDisconnection(user);
     }
 }

@@ -1,5 +1,6 @@
-package fr.projava.triangle.Models;
+package fr.projava.triangle.Objects;
 
+import fr.projava.triangle.Models.User;
 import javafx.scene.control.Button;
 
 public class UserObject extends Button {

@@ -9,7 +9,7 @@ public class MThread extends Thread {
     User receiver;
     User sender;
     boolean connection;
-    String msg;
+    String message;
 
     //CONSTRUCTOR POUR THREAD LISTENING UDP OU TCP
     public MThread(String typeThread,User receiver){
@@ -18,10 +18,10 @@ public class MThread extends Thread {
         start();
     }
     //CONSTRUCTOR POUR THREAD ENVOI TCP
-    public MThread(String typeThread, User receiver , String msg) {
+    public MThread(String typeThread, User receiver , String message) {
         this.type=typeThread;
         this.receiver=receiver;
-        this.msg=msg;
+        this.message = message;
         start();
     }
     //CONSTRUCTOR POUR THREAD BROADCAST UDP
@@ -59,7 +59,7 @@ public class MThread extends Thread {
                 //LISTENING THREAD UDP
                 try {
                     while (true) {
-                        String recpt = NetworkController.ListenUDP();
+                        String recpt = NetworkController.listenUDP();
                         String[] analyseMsg = recpt.split("_");
                         String adr = analyseMsg[3];
                         String state = recpt.substring(recpt.lastIndexOf("_") + 1, recpt.lastIndexOf("_") + 2);
@@ -96,7 +96,7 @@ public class MThread extends Thread {
             case "ListeningTCP":
                 try {
                     while (true) {
-                        String msg = NetworkController.ListenTCP(this.receiver.getPort());
+                        String msg = NetworkController.listenTCP(this.receiver.getPort());
                         String[] analyseMsg = msg.split("-");
                         String message = analyseMsg[0];
                         String AdrIP = analyseMsg[1];
@@ -108,21 +108,21 @@ public class MThread extends Thread {
                 }
             case "SendTCP":
                 try {
-                    NetworkController.SendTCP(receiver, msg);
+                    NetworkController.sendTCP(receiver, message);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case "BroadcastUDP":
                 try {
-                    NetworkController.BroadcastUDP(sender, connection);
+                    NetworkController.broadcastUDP(sender, connection);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case "SendUDP":
                 try {
-                    NetworkController.SendUDP(sender, receiver, connection);
+                    NetworkController.sendUDP(sender, receiver, connection);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

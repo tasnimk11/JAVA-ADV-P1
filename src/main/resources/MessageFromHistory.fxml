@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="63.0" layoutY="7.0" prefHeight="18.0" prefWidth="251.0" text="Message sent ....">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="1.0" layoutY="7.0" prefHeight="18.0" prefWidth="50.0" text="Sender">
+         <font>
+            <Font name="Century Gothic Bold" size="12.0" />
+         </font>
+      </Label>
+      <Line endX="4.9591064453125E-5" endY="22.000015258789062" layoutX="56.0" layoutY="8.0" startX="4.57763671875E-5" startY="-7.0" />
+      <Label alignment="BOTTOM_RIGHT" layoutX="336.0" layoutY="8.0" prefHeight="18.0" prefWidth="28.0" text="date">
+         <font>
+            <Font name="Century Gothic Bold" size="8.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

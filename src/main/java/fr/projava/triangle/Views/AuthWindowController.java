@@ -1,5 +1,6 @@
-package fr.projava.triangle.Controllers;
+package fr.projava.triangle.Views;
 
+import fr.projava.triangle.Controllers.AccountController;
 import fr.projava.triangle.Models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

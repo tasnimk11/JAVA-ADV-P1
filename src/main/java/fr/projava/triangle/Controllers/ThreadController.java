@@ -8,41 +8,56 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 public class ThreadController {
-    static MThread ListenerUDP;
-    static MThread ListenerTCP;
+    static MThread listenerUDP;
+    static MThread listenerTCP;
     public ThreadController() {}
 
-    public static void BroadcastConnection(User sender, boolean connection) {
+    /*
+     *************************
+     * TCP
+     *************************
+     * */
+
+    public static void broadcastConnection(User sender, boolean connection) {
         new MThread("BroadcastUDP",sender , connection);
     }
 
-    public static void BroadcastDisconnection(User sender) throws IOException {
+    public static void broadcastDisconnection(User sender) throws IOException {
         sender.setIPAddress(InetAddress.getByName("0.0.0.0"));
         sender.setPort(0);
         new MThread("BroadcastUDP",sender , false);
-        StopListeningThreadUDP();
-        StopListeningThreadTCP();
-        NetworkController.CloseListenUDP();
-        NetworkController.CloseListenTCP();
+        stopListeningThreadUDP();
+        stopListeningThreadTCP();
+        NetworkController.closeListenUDP();
+        NetworkController.closeListenTCP();
     }
 
-    public static void LaunchListeningThreadUDP(User receiver) {
-        ListenerUDP=new MThread("ListeningUDP",receiver);
+    public static void launchListeningThreadUDP(User receiver) {
+        listenerUDP =new MThread("ListeningUDP",receiver);
     }
-
-    public static void StopListeningThreadUDP(){ListenerUDP.stop();}
-
-    public static void LaunchListeningThreadTCP(User receiver) {ListenerTCP=new MThread("ListeningTCP",receiver);}
-
-    public static void StopListeningThreadTCP(){ListenerTCP.stop();}
 
     public static boolean validPseudo(User u) throws InterruptedException, SocketException {
         NetworkController.openSocketUDP();
-        LaunchListeningThreadUDP(u);
-        BroadcastConnection(u,false);
+        launchListeningThreadUDP(u);
+        broadcastConnection(u,false);
         Thread aux= new Thread();
         Thread.sleep(1000);
         return u.checkValidPseudo();
     }
-    public static void SendTCP(User receiver, String msg) { new MThread("SendTCP",receiver,msg);}
+
+    public static void stopListeningThreadUDP(){
+        listenerUDP.stop();}
+
+    /*
+     *************************
+     * TCP
+     *************************
+     * */
+
+    public static void launchListeningThreadTCP(User receiver) {
+        listenerTCP =new MThread("ListeningTCP",receiver);}
+
+    public static void stopListeningThreadTCP(){
+        listenerTCP.stop();}
+    public static void sendTCP(User receiver, String msg) { new MThread("SendTCP",receiver,msg);}
 }

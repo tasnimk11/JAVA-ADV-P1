@@ -1,9 +1,11 @@
-package fr.projava.triangle.Controllers;
+package fr.projava.triangle.Views;
 
+import fr.projava.triangle.Controllers.AccountController;
+import fr.projava.triangle.Controllers.ConversationController;
 import fr.projava.triangle.Models.Message;
-import fr.projava.triangle.Models.MessageObject;
+import fr.projava.triangle.Objects.MessageObject;
 import fr.projava.triangle.Models.User;
-import fr.projava.triangle.Models.UserObject;
+import fr.projava.triangle.Objects.UserObject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

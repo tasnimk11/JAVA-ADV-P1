@@ -1,4 +1,4 @@
-package fr.projava.triangle.Models;
+package fr.projava.triangle.Objects;
 
 import javafx.scene.control.Label;
 
