@@ -70,7 +70,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <ScrollPane layoutX="355.0" layoutY="38.0" prefHeight="312.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <ScrollPane layoutX="355.0" layoutY="38.0" prefHeight="312.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-fit-to-width: true; -fx-vvalue: 1.0;">
                <content>
                   <VBox fx:id="boxHistory" prefHeight="309.0" prefWidth="384.0" style="-fx-background-color: transparent;" />
                </content>
@@ -85,7 +85,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextArea fx:id="message" layoutX="364.0" layoutY="354.0" prefHeight="43.0" prefWidth="322.0" promptText="Type your message." />
+            <TextArea fx:id="message" layoutX="364.0" layoutY="354.0" prefHeight="43.0" prefWidth="322.0" promptText="Type your message." wrapText="true" />
             <Label fx:id="lblErrorPseudo" layoutX="52.0" layoutY="411.0" prefHeight="17.0" prefWidth="205.0" text="   " textFill="#b1f558">
                <font>
                   <Font name="Arial Black" size="9.0" />

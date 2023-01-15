@@ -33,19 +33,18 @@ public class AuthWindowController {
     public void signIn(MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
         String p = pseudoInput.getText();
         String msg = AccountController.connectToAccount(p);
-        user = AccountController.getUser();
-        if(user!=null){
-            System.out.println("______________________ ");
-            System.out.println("CONNECTED USERS : ");
-            user.showConnectedUsers();
-            System.out.println("______________________ ");
-        }
-
-
         if (msg.equals("Unable to connect") || msg.equals("Account not found."))
             returnMessage.setText(msg);
-        else
+        else {
+            user = AccountController.getUser();
+            if (user != null) {
+                System.out.println("[AuthWindow CONTROLLER] : " + "______________________ ");
+                System.out.println("[AuthWindow CONTROLLER] : " + "CONNECTED USERS : ");
+                user.showConnectedUsers();
+                System.out.println("[AuthWindow CONTROLLER] : " + "______________________ ");
+            }
             goToChat(mouseEvent);
+        }
     }
 
     public void signUp(MouseEvent mouseEvent) throws UnknownHostException, SQLException {

@@ -1,18 +1,34 @@
 package fr.projava.triangle.Models;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.UUID;
 
 public class User {
-    private InetAddress IPAddress;
+    private String id;
+    private InetAddress ipInetAddress;
     private int port;
     private String pseudo;
     private final boolean connected= false;
-    private final ArrayList<User> ContactBook=new ArrayList<>();
+    private final ArrayList<User> contactBook =new ArrayList<>();
 
     public User(InetAddress ipAddress, int port, String pseudo) {
-        IPAddress = ipAddress;
+        this.ipInetAddress = ipAddress;
+        this.port = port;
+        this.pseudo = pseudo;
+    }
+
+    public User(String ipAddress, String pseudo) throws UnknownHostException {
+        this.id = UUID.randomUUID().toString();
+        this.ipInetAddress = InetAddress.getByName(ipAddress);
+        this.pseudo = pseudo;
+    }
+
+    public User(String id, InetAddress ipAddress, int port, String pseudo) {
+        this.id = id;
+        this.ipInetAddress = ipAddress;
         this.port = port;
         this.pseudo = pseudo;
     }
@@ -21,8 +37,11 @@ public class User {
     * GETTERS
     */
 
-    public InetAddress getIPAddress() {
-        return IPAddress;
+    public String getId() {
+        return id;
+    }
+    public InetAddress getIpInetAddress() {
+        return ipInetAddress;
     }
     public int getPort() {
         return port;
@@ -35,20 +54,25 @@ public class User {
         return connected;
     }
     public ArrayList<User> getContactBook() {
-        return this.ContactBook;
+        return this.contactBook;
     }
 
     /*
      * SETTERS
      */
-    public void setIPAddress(InetAddress ipAddress) {
-        this.IPAddress=ipAddress;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIpInetAddress(InetAddress ipAddress) {
+        this.ipInetAddress =ipAddress;
     }
     public void setPort(int port) {
         this.port=port;
     }
     public void addUserToContactBook(User toAdd){
-        this.ContactBook.add(toAdd);
+        this.contactBook.add(toAdd);
     }
 
     /*
@@ -57,7 +81,7 @@ public class User {
     public void showConnectedUsers() {
         for(int i = 0; i < this.getContactBook().size(); i++) {
             User u1= this.getContactBook().get(i);
-            System.out.println(u1.getPseudo() + " ");
+            System.out.println("[USER] : "+ u1.getPseudo() + " ");
         }
     }
 
@@ -67,7 +91,7 @@ public class User {
         while((i < this.getContactBook().size())&&(!found)) {
             User u1= this.getContactBook().get(i);
             if (toRmv.getPseudo().equals((u1.getPseudo()))) {
-                this.ContactBook.remove(i);
+                this.contactBook.remove(i);
                 found=true;
             }
             i++;
@@ -75,7 +99,7 @@ public class User {
     }
     public boolean checkValidPseudo() {
         boolean valid=true;
-        Iterator<User> iter = this.ContactBook.iterator();
+        Iterator<User> iter = this.contactBook.iterator();
         while ((iter.hasNext())&&(valid)) {
             if (this.pseudo.equals(iter.next().getPseudo())) {valid=false;}
 
@@ -100,7 +124,7 @@ public class User {
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
             User u1= this.getContactBook().get(i);
-            if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
+            if (u1.getIpInetAddress().toString().equals(u.getIpInetAddress().toString())) {
                 u1.setPseudo(u.getPseudo());
                 found=true;
             }
@@ -112,7 +136,7 @@ public class User {
         boolean found=false;
         while((i < this.getContactBook().size())&&(!found)) {
             User u1= this.getContactBook().get(i);
-            if (u1.getIPAddress().toString().equals(u.getIPAddress().toString())) {
+            if (u1.getIpInetAddress().toString().equals(u.getIpInetAddress().toString())) {
                 found=true;
             }
             i++;

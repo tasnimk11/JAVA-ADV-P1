@@ -19,7 +19,7 @@ public class NetworkController {
         {cnx=1;} else{cnx=0;}
         String bcMsg;
         try {
-            bcMsg = u.getPseudo() + "_" + u.getIPAddress() + "_" + u.getPort() + "_" + cnx;
+            bcMsg = u.getPseudo() + "_" + u.getIpInetAddress() + "_" + u.getPort() + "_" + cnx;
             byte[] buffer = bcMsg.getBytes();
             String broadcastAddress = "10.1.255.255";
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(broadcastAddress), 1108);
@@ -29,15 +29,15 @@ public class NetworkController {
             socket.close();
         }
         catch(NullPointerException e) {
-            System.out.println("NullPointerException thrown!");
+            System.out.println("[NETWORK CONTROLLER] : "+ e.getMessage());
         }
     }
     public static void sendUDP(User sender, User receiver, boolean connection) throws IOException {
             int cnx=0;
             if (connection) {cnx=1;}
-            String bcMsg = sender.getPseudo()+"_"+sender.getIPAddress()+"_"+sender.getPort()+"_"+cnx;
+            String bcMsg = sender.getPseudo()+"_"+sender.getIpInetAddress()+"_"+sender.getPort()+"_"+cnx;
             byte[] buffer = bcMsg.getBytes();
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIPAddress(), 1108);
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIpInetAddress(), 1108);
             DatagramSocket socket = new DatagramSocket();
             socket.setBroadcast(true);
             socket.send(packet);
@@ -48,15 +48,15 @@ public class NetworkController {
         DatagramPacket response = new DatagramPacket(buffer, buffer.length);
         socket.receive(response);
         InetAddress address=response.getAddress();
-        String AdrIP2=address.toString();
+        String adrIP2=address.toString();
         String reception = new String(response.getData());
         String [] analyseMsg=reception.split("_");
         String UserName=analyseMsg[0];
         String adr=analyseMsg[1];
-        String Port=analyseMsg[2];
+        String port=analyseMsg[2];
         String cnx=analyseMsg[3];
-        reception=UserName+"_"+AdrIP2+"_"+Port+"_"+adr+"_"+cnx;
-        System.out.println("this is the reception   "+reception);
+        reception=UserName+"_"+adrIP2+"_"+port+"_"+adr+"_"+cnx;
+        System.out.println("[NETWORK CONTROLLER] : "+ "Message received ="+reception);
         return reception;
     }
     public static void closeListenUDP() {
@@ -69,7 +69,7 @@ public class NetworkController {
      *************************
      * */
     public static void sendTCP(User u, String msg) throws IOException {
-        Socket link=new Socket(u.getIPAddress(),u.getPort());
+        Socket link=new Socket(u.getIpInetAddress(),u.getPort());
         ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
         PrintWriter writer = new PrintWriter(out, true);
         writer.println(msg);
@@ -84,7 +84,7 @@ public class NetworkController {
         System.out.println(msg);
         InetSocketAddress socketAddress = (InetSocketAddress) clientSocket.getRemoteSocketAddress();
         String clientIpAddress = socketAddress.getAddress().getHostAddress();
-        System.out.println("Sent by "+clientIpAddress);
+        System.out.println("[NETWORK CONTROLLER] : "+ "Sent by : "+clientIpAddress);
         msg=msg+"-"+clientIpAddress;
         clientSocket.close();
         return msg;

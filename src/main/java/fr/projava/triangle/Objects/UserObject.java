@@ -13,7 +13,7 @@ public class UserObject extends Button {
     }
 
     public String getIP(){
-        return user.getIPAddress().getHostAddress();
+        return user.getIpInetAddress().getHostAddress();
     }
 
     public User getUser() {

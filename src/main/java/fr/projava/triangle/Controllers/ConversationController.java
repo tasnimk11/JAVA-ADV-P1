@@ -7,20 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ConversationController {
-    public static void sendMessage(User user, String message) throws SQLException {
-        ThreadController.sendTCP(user,message);
+    public static void sendMessage(String id, User user, String message) throws SQLException {
+        ThreadController.sendTCP(user,message); //TODO : should be a blocking call !
         //DB controller : add to DB
-        DatabaseController.addMessage(user.getIPAddress().getHostAddress(),message, true);
+        DatabaseController.addMessage(id,user.getIpInetAddress().getHostAddress(),message, true);
     }
 
-    public static void receiveMessage(String remoteIP, String message) throws SQLException {
+    public static void receiveMessage(User user,String remoteIP, String message) throws SQLException {
         //Supposedly, message was received by TCP listener => called once everything is okay
-        //TODO : Every Message received is added to DB (TCP)
-        //TODO : connected user sending the message is highlighted in front
-        DatabaseController.addMessage(remoteIP,message, false);
+        DatabaseController.addMessage(user.getId(),remoteIP,message, false);
 
     }
-    public static ArrayList<Message> loadHistory(String remoteIP) throws SQLException {
-        return DatabaseController.loadHistory(remoteIP);
+    public static ArrayList<Message> loadHistory(String remoteIP,String id) throws SQLException {
+        return DatabaseController.loadHistory(remoteIP,id);
     }
 }

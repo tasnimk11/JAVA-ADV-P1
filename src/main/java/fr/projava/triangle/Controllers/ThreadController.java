@@ -23,7 +23,7 @@ public class ThreadController {
     }
 
     public static void broadcastDisconnection(User sender) throws IOException {
-        sender.setIPAddress(InetAddress.getByName("0.0.0.0"));
+        sender.setIpInetAddress(InetAddress.getByName("0.0.0.0"));
         sender.setPort(0);
         new MThread("BroadcastUDP",sender , false);
         stopListeningThreadUDP();

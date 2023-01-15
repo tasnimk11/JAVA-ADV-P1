@@ -23,10 +23,12 @@ public class AccountController {
         String message;
         String ip = InetAddress.getLocalHost().getHostAddress();
         if(DatabaseController.existingAccount(ip, pseudo).equals("pseudo_new") && DatabaseController.existingIP(ip).equals("ip_new")) {
-            DatabaseController.addUser(ip, pseudo);
+            user = new User(ip,pseudo);
+            DatabaseController.addUser(user.getId(),ip, pseudo);
             message = "Pseudo created successfully !";
-        } else
+        } else {
             message = "Existing account. Try using another one!";
+        }
         return message;
     }
 
@@ -39,9 +41,15 @@ public class AccountController {
     * */
     public static String connectToAccount(String pseudo) throws IOException, SQLException, InterruptedException {
         String message;
-        if(DatabaseController.existingAccount(InetAddress.getLocalHost().getHostAddress(), pseudo).equals("pseudo_exists")) {
-            user = new User(InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()),1108,pseudo);
-
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        if(DatabaseController.existingAccount(ip, pseudo).equals("pseudo_exists")) {
+            String id = DatabaseController.getUserID(ip);
+            System.out.println("[ACCOUNT CONTROLLER] : "+ "user id =" + id);
+            if (user == null) {
+                user = new User(DatabaseController.getUserID(ip), InetAddress.getByName(ip), 1108, pseudo);
+            } else {
+                user.setPort(1108);
+            }
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
                 ThreadController.broadcastConnection(user,true);
@@ -57,7 +65,7 @@ public class AccountController {
     }
 
     public static User getUser() {
-        System.out.println("[ACCOUNT CONTROLLER ] : USER " + user.getPseudo() );
+        System.out.println("[ACCOUNT CONTROLLER] : USER " + user.getPseudo() );
         user.showConnectedUsers();
         return user;
     }
@@ -69,7 +77,7 @@ public class AccountController {
             //BC : new pseudo
             ThreadController.broadcastConnection(user,true);
             //Update user in DB
-            DatabaseController.updateAccount(user.getIPAddress().getHostAddress(),pseudo);
+            DatabaseController.updateAccount(user.getIpInetAddress().getHostAddress(),pseudo);
             msg = "pseudo_ok" ;
         }
         else {

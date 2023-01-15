@@ -12,10 +12,10 @@ public class DatabaseController {
         try {
             String url = "jdbc:sqlite:src/main/java/fr/projava/triangle/db/triangle.db";
             connection = DriverManager.getConnection(url);
-            System.out.println("Connection to DB established.");
+            System.out.println("[DATABASE CONTROLLER] : "+"Connection to DB established.");
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("[DATABASE CONTROLLER] : "+ e.getMessage());
         }
     }
 
@@ -47,30 +47,30 @@ public class DatabaseController {
     }
 
 
-    public static void addUser(String ip, String pseudo) throws SQLException {
-        String reqSQL= "INSERT INTO users (IP_address,Pseudo) VALUES ('"+ ip+"','" + pseudo + "')";
+    public static void addUser(String uid, String ip, String pseudo) throws SQLException {
+        String reqSQL= "INSERT INTO users (User_ID,IP_address,Pseudo) VALUES ('"+ uid+"',+ '"+ ip+"','" + pseudo + "')";
         Statement statement = connection.createStatement();
         statement.executeUpdate(reqSQL);
     }
 
 
-    public static void addMessage(String remoteUser, String message,Boolean sender) throws SQLException {
+    public static void addMessage(String id, String remoteUser, String message,Boolean sender) throws SQLException {
         String reqSQL;
         if(sender){
-            reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + 1 + "')";
+            reqSQL= "INSERT INTO chat_history (User_ID, Remote_User,Message,Sender) VALUES ('"+ id + "','"+ remoteUser + "','" + message + "','" + 1 + "')";
         } else {
-            reqSQL= "INSERT INTO chat_history (Remote_User,Message,Sender) VALUES ('"+ remoteUser + "','" + message + "','" + 0 + "')";
+            reqSQL= "INSERT INTO chat_history (User_ID, Remote_User,Message,Sender) VALUES ('"+ id + "',+'"+ remoteUser + "','" + message + "','" + 0 + "')";
         }
         Statement statement = connection.createStatement();
         statement.executeUpdate(reqSQL);
     }
 
 
-    public static ArrayList<Message> loadHistory(String remoteUser) throws SQLException {
+    public static ArrayList<Message> loadHistory(String remoteUser,String id) throws SQLException {
         ArrayList<Message> h = new ArrayList<>();
         String reqSQL="SELECT * " +
                 "FROM chat_history " +
-                "WHERE Remote_User='" + remoteUser + "'";
+                "WHERE Remote_User='" + remoteUser + "'AND User_ID='" + id +"'";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(reqSQL);
         while(rs.next()){
@@ -90,4 +90,16 @@ public class DatabaseController {
     }
 
 
+    public static String getUserID(String ip) throws SQLException {
+        String reqSQL="SELECT * " +
+                "FROM users " +
+                "WHERE IP_address='" + ip + "'";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(reqSQL);
+        if (!rs.next()){
+            return "NO_ID";
+        } else {
+            return rs.getString("User_ID");
+        }
+    }
 }
