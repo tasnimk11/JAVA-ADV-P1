@@ -28,12 +28,12 @@ public class TestConnection2 {
 
     public static void main(String[] args) throws InterruptedException, UnknownHostException {
         u=new User(InetAddress.getByName(adresse), 1108, "Sofiene");
-        ThreadController.LaunchListeningThreadUDP(u);
+        ThreadController.launchListeningThreadUDP(u);
         Thread aux=new Thread();
         aux.sleep(3000);
         for(int i = 0; i < u.getContactBook().size(); i++) {
             User u1= (User) u.getContactBook().get(i);
-            System.out.print(u1.getPseudo() + " " + u1.getIPAddress());
+            System.out.print(u1.getPseudo() + " " + u1.getIpInetAddress());
         }
     }
 
