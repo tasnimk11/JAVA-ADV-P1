@@ -34,7 +34,6 @@ public class DatabaseController {
         } else {
             return "mac_new";
         }
-
     }
 
     /*
@@ -50,6 +49,29 @@ public class DatabaseController {
              return "pseudo_new";
         } else {
             return "pseudo_exists";
+        }
+    }
+
+    public static void updateAccount(String mac, String newPseudo) throws SQLException {
+        String reqSQL= "UPDATE users " +
+                "SET  Pseudo='"+ newPseudo + "'" +
+                "WHERE MAC_address='" + mac + "'";
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(reqSQL);
+
+    }
+
+
+    public static String getUserID(String mac) throws SQLException {
+        String reqSQL="SELECT * " +
+                "FROM users " +
+                "WHERE MAC_address='" + mac + "'";
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(reqSQL);
+        if (rs.next()){
+            return rs.getString("User_ID");
+        } else {
+            return "NO_ID";
         }
     }
 
@@ -90,26 +112,4 @@ public class DatabaseController {
         return h;
     }
 
-    public static void updateAccount(String mac, String newPseudo) throws SQLException {
-        String reqSQL= "UPDATE users " +
-                "SET  Pseudo='"+ newPseudo + "'" +
-                "WHERE MAC_address='" + mac + "'";
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(reqSQL);
-
-    }
-
-
-    public static String getUserID(String mac) throws SQLException {
-        String reqSQL="SELECT * " +
-                "FROM users " +
-                "WHERE MAC_address='" + mac + "'";
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery(reqSQL);
-        if (rs.next()){
-            return rs.getString("User_ID");
-        } else {
-            return "NO_ID";
-        }
-    }
 }
