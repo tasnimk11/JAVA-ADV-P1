@@ -24,7 +24,7 @@ public class TestConnection  {
         //AccountController.connectToAccount(u.getPseudo());
         //System.out.println("_______________");
         if(ThreadController.validPseudo(u)) {
-            ThreadController.BroadcastConnection(u,true);
+            ThreadController.broadcastConnection(u,true);
         }
         else{
             System.out.println("Choose another pseudo");
@@ -33,12 +33,13 @@ public class TestConnection  {
         System.out.println("______________________ ");
         System.out.println("CONNECTED USERS : ");
         u.showConnectedUsers();
-        System.out.println("______________________ ");
+        System.out.println("____________________" +
+                "__ ");
 
         System.out.println("***Testing Change pseudo");
         if(u.checkChangedPseudo("TasnimNewPseudo")) {
             u.setPseudo("TasnimNewPseudo");
-            ThreadController.BroadcastConnection(u,true);
+            ThreadController.broadcastConnection(u,true);
         }
         else {
             //A REVOIR MESSAGE
@@ -47,7 +48,7 @@ public class TestConnection  {
         System.out.println("\n Initiatiating disconnection");
         Thread aux=new Thread();
         aux.sleep(10000);
-        ThreadController.BroadcastDisconnection(u);
+        ThreadController.broadcastDisconnection(u);
     }
 }
 

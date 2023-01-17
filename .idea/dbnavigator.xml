@@ -12,8 +12,8 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="18b76388-9097-4135-9f9b-95acf3530826">
-      <console name="Connection 1" type="STANDARD" schema="" session="Main" />
+    <connection id="0744f2a1-2cb9-40b6-b55f-551f9da89318">
+      <console name="triangle.db" type="STANDARD" schema="" session="Main"><![CDATA[SELECT * FROM users]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -22,8 +22,22 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="0744f2a1-2cb9-40b6-b55f-551f9da89318" dataset="main.users" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -31,13 +45,13 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="18b76388-9097-4135-9f9b-95acf3530826" active="true" signed="true">
+      <connection id="0744f2a1-2cb9-40b6-b55f-551f9da89318" active="true" signed="true">
         <database>
-          <name value="Connection 1" />
+          <name value="triangle.db" />
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="3.34" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
@@ -46,7 +60,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="triangle.db" schema="main" />
+            <file path="$PROJECT_DIR$/src/main/java/fr/projava/triangle/db/triangle.db" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />
@@ -516,5 +530,8 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
   </component>
 </project>

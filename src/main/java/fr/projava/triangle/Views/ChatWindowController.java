@@ -220,15 +220,15 @@ public class ChatWindowController implements Initializable {
             vboxConnectedUsers.getChildren().add(o);
             vboxConnectedUsers.setSpacing(10);
             o.setOnMouseClicked(
-                event -> {
-                    try {
-                        userSelected = o;
-                        o.readMessages();
-                        loadHistory(o.getIP());
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
+                    event -> {
+                        try {
+                            userSelected = o;
+                            o.readMessages();
+                            loadHistory(o.getIP());
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
             );
         }
     }
@@ -247,8 +247,8 @@ public class ChatWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        subject.addObserver(connectedUsersObserver);
-        subject.addObserver(receivedMessageObserver);
+            subject.addObserver(connectedUsersObserver);
+            subject.addObserver(receivedMessageObserver);
     }
 }
 
