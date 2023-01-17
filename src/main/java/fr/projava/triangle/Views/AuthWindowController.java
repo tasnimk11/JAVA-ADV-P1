@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 
@@ -47,7 +48,7 @@ public class AuthWindowController {
         }
     }
 
-    public void signUp(MouseEvent mouseEvent) throws UnknownHostException, SQLException {
+    public void signUp(MouseEvent mouseEvent) throws UnknownHostException, SQLException, SocketException {
         String p = pseudoInput.getText();
         String msg = AccountController.newAccount(p);
         returnMessage.setText(msg);

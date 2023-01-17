@@ -5,29 +5,43 @@ import fr.projava.triangle.Models.User;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.UUID;
 
 
 public class AccountController {
 
     private static User user;
+
+
+    private static String getMAC() throws UnknownHostException, SocketException {
+        InetAddress localHost = InetAddress.getLocalHost();
+        NetworkInterface ni = NetworkInterface.getByInetAddress(localHost);
+        byte[] hardwareAddress = ni.getHardwareAddress();
+        String[] hexadecimal = new String[hardwareAddress.length];
+        for (int i = 0; i < hardwareAddress.length; i++) {
+            hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+        }
+        return String.join("-", hexadecimal);
+    }
     /*
     * Gets Pseudo from authentication window
-    * if pseudo new AND ip none existing then
-    *   add user to DB
-    * if such entry exists OR IP already used
-    *   don't add, and account exists
+    *   if pseudo new AND MAC_address are none existing then
+    *       add user to DB + give him an ID
+    *   if such MAC_address already used
+    *       don't add, and give back a message = account exists
     * */
-    public static String newAccount(String pseudo) throws UnknownHostException, SQLException {
+    public static String newAccount(String pseudo) throws SQLException, SocketException, UnknownHostException {
         String message;
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        if(DatabaseController.existingAccount(ip, pseudo).equals("pseudo_new") && DatabaseController.existingIP(ip).equals("ip_new")) {
-            user = new User(ip,pseudo);
-            DatabaseController.addUser(user.getId(),ip, pseudo);
+        String mac = getMAC();
+        if(DatabaseController.existingMAC(mac).equals("mac_new")) {
+            DatabaseController.addUser(UUID.randomUUID().toString(), mac, pseudo); // Adding User with a new pseudo
             message = "Pseudo created successfully !";
         } else {
-            message = "Existing account. Try using another one!";
+            message = "Existing account.";
         }
         return message;
     }
@@ -41,15 +55,12 @@ public class AccountController {
     * */
     public static String connectToAccount(String pseudo) throws IOException, SQLException, InterruptedException {
         String message;
-        String ip = InetAddress.getLocalHost().getHostAddress();
-        if(DatabaseController.existingAccount(ip, pseudo).equals("pseudo_exists")) {
-            String id = DatabaseController.getUserID(ip);
+        String mac = getMAC();
+        InetAddress ip = InetAddress.getByName(InetAddress.getLocalHost().getHostAddress());
+        if(DatabaseController.existingAccount(mac, pseudo).equals("pseudo_exists")) { //Ready to connect
+            String id = DatabaseController.getUserID(mac);
             System.out.println("[ACCOUNT CONTROLLER] : "+ "user id =" + id);
-            if (user == null) {
-                user = new User(DatabaseController.getUserID(ip), InetAddress.getByName(ip), 1108, pseudo);
-            } else {
-                user.setPort(1108);
-            }
+            user = new User(ip, id, 1108, pseudo);
             /*bc connection + fill contact book*/
             if (ThreadController.validPseudo(user)){
                 ThreadController.broadcastConnection(user,true);
@@ -69,15 +80,14 @@ public class AccountController {
         user.showConnectedUsers();
         return user;
     }
-
-    public static String changePseudo(String pseudo) throws SQLException {
+    public static String changePseudo(String pseudo) throws SQLException, SocketException, UnknownHostException {
         String msg;
         if(user.checkChangedPseudo(pseudo)) { //BC : if pseudo is already in use
             user.setPseudo(pseudo);
             //BC : new pseudo
             ThreadController.broadcastConnection(user,true);
             //Update user in DB
-            DatabaseController.updateAccount(user.getIpInetAddress().getHostAddress(),pseudo);
+            DatabaseController.updateAccount(getMAC(),pseudo);
             msg = "pseudo_ok" ;
         }
         else {

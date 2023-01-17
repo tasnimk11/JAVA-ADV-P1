@@ -1,10 +1,8 @@
 package fr.projava.triangle.Models;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.UUID;
 
 public class User {
     private String id;
@@ -20,18 +18,13 @@ public class User {
         this.pseudo = pseudo;
     }
 
-    public User(String ipAddress, String pseudo) throws UnknownHostException {
-        this.id = UUID.randomUUID().toString();
-        this.ipInetAddress = InetAddress.getByName(ipAddress);
-        this.pseudo = pseudo;
-    }
-
-    public User(String id, InetAddress ipAddress, int port, String pseudo) {
+    public User(InetAddress ip, String id, int port, String pseudo) {
+        this.ipInetAddress = ip;
         this.id = id;
-        this.ipInetAddress = ipAddress;
         this.port = port;
         this.pseudo = pseudo;
     }
+
 
     /*
     * GETTERS

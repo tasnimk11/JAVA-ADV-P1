@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -233,7 +234,7 @@ public class ChatWindowController implements Initializable {
         }
     }
 
-    public void changePseudo(MouseEvent mouseEvent) throws SQLException {
+    public void changePseudo(MouseEvent mouseEvent) throws SQLException, SocketException, UnknownHostException {
         lblErrorPseudo.setText("  ");
         String msg = AccountController.changePseudo(txtNewPseudo.getText());
         if (msg.equals("pseudo_ok")){

@@ -19,24 +19,31 @@ public class DatabaseController {
         }
     }
 
-    public static  String existingIP(String ip) throws SQLException {
+    /*
+    * Verifies if MAC isn't already used
+    * which means that : if any account is already defined for this computer
+    * */
+    public static  String existingMAC(String mac) throws SQLException {
         String reqSQL= "SELECT * " +
                 "FROM users " +
-                "WHERE IP_address='" + ip +"'";
+                "WHERE MAC_address='" + mac +"'";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(reqSQL);
         if (rs.next()){
-            return "ip_exists";
+            return "mac_exists";
         } else {
-            return "ip_new";
+            return "mac_new";
         }
 
     }
 
-    public static String existingAccount(String ip, String pseudo) throws SQLException {
+    /*
+    * Verifies if an account was created using this MAC address and with this pseudo
+    * */
+    public static String existingAccount(String mac, String pseudo) throws SQLException {
         String reqSQL="SELECT * " +
                 "FROM users " +
-                "WHERE IP_address='" + ip + "'AND Pseudo='" + pseudo +"'";
+                "WHERE MAC_address='" + mac + "'AND Pseudo='" + pseudo +"'";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(reqSQL);
         if (!rs.next()){
@@ -47,8 +54,11 @@ public class DatabaseController {
     }
 
 
-    public static void addUser(String uid, String ip, String pseudo) throws SQLException {
-        String reqSQL= "INSERT INTO users (User_ID,IP_address,Pseudo) VALUES ('"+ uid+"',+ '"+ ip+"','" + pseudo + "')";
+    /*
+    * Add a new entry to DB : id, pseudo and mac
+    * */
+    public static void addUser(String uid, String mac, String pseudo) throws SQLException {
+        String reqSQL= "INSERT INTO users (User_ID,MAC_address,Pseudo) VALUES ('"+ uid+"',+ '"+ mac+"','" + pseudo + "')";
         Statement statement = connection.createStatement();
         statement.executeUpdate(reqSQL);
     }
@@ -80,26 +90,26 @@ public class DatabaseController {
         return h;
     }
 
-    public static void updateAccount(String ip, String newPseudo) throws SQLException {
+    public static void updateAccount(String mac, String newPseudo) throws SQLException {
         String reqSQL= "UPDATE users " +
                 "SET  Pseudo='"+ newPseudo + "'" +
-                "WHERE IP_address='" + ip + "'";
+                "WHERE MAC_address='" + mac + "'";
         Statement statement = connection.createStatement();
         statement.executeUpdate(reqSQL);
 
     }
 
 
-    public static String getUserID(String ip) throws SQLException {
+    public static String getUserID(String mac) throws SQLException {
         String reqSQL="SELECT * " +
                 "FROM users " +
-                "WHERE IP_address='" + ip + "'";
+                "WHERE MAC_address='" + mac + "'";
         Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(reqSQL);
-        if (!rs.next()){
-            return "NO_ID";
-        } else {
+        if (rs.next()){
             return rs.getString("User_ID");
+        } else {
+            return "NO_ID";
         }
     }
 }

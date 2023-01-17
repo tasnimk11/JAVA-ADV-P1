@@ -21,7 +21,7 @@ public class NetworkController {
         try {
             bcMsg = u.getPseudo() + "_" + u.getIpInetAddress() + "_" + u.getPort() + "_" + cnx;
             byte[] buffer = bcMsg.getBytes();
-            String broadcastAddress = "10.1.255.255";
+            String broadcastAddress = "10.1.255.255"; //TODO : adapt according to network
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(broadcastAddress), 1108);
             DatagramSocket socket = new DatagramSocket();
             socket.setBroadcast(true);
