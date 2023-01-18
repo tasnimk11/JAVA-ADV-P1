@@ -95,6 +95,8 @@ public class MThread extends Thread {
                                 //Existing address in Contact Book => Changing Pseudo
                                 if (this.receiver.existingAddress(u)) {
                                     this.receiver.changePseudoByAddress(u);
+                                    //notify observer
+                                    Subject.notifyObservers("ConnectedUsers");
                                     System.out.println("[MThread] : "+"Update of pseudo " + u.getPseudo());
                                 } else {
                                     System.out.println("[MThread] : "+"Adding " + u.getPseudo() + "to contact Book");
