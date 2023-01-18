@@ -4,14 +4,15 @@ import javafx.scene.control.Label;
 
 public class MessageObject extends Label {
     private final String msg ;
-    private int maxLetters = 35; //35 "m"
-    private int minWidth = 370; // quite standard
-    private int minHeight = 17; //  1 line of message
-    private int maxWidth = 290;
+    private double maxLetters = 35; //35 "m"
+    private double minWidth ; // quite standard
+    private double minHeight = 17; //  1 line of message
+    private double maxWidth ;
 
-    public MessageObject(String s, boolean sender,double width) {
+    public MessageObject(String s, boolean sender,double widthBox) {
         this.msg = s;
-        this.setMaxWidth(width);
+        this.maxWidth = widthBox-10;
+        this.minWidth = widthBox-10;
         if (sender){
             this.setStyle("-fx-background-color: #eedce5;-fx-text-fill: #000000 ;-fx-font-family: Arial;-fx-font-size: 12; -fx-wrap-text:true");
             setSizes(s.length());
@@ -30,13 +31,13 @@ public class MessageObject extends Label {
     *   calculates how many lines are needed
     *   returns the nbr of line needed * height of message
     * */
-    private int calcHeight(int length){
+    private double calcHeight(int length){
         return minHeight*(length/maxLetters);
     }
 
     private void setSizes(int length){
-        this.setMaxSize(minWidth, maxWidth);
-        this.setMinSize(minWidth, minWidth);
+        this.setMaxSize(minWidth, calcHeight(length));
+        this.setMinSize(minWidth, minHeight);
         this.setPrefSize(minWidth, calcHeight(length));
     }
 }

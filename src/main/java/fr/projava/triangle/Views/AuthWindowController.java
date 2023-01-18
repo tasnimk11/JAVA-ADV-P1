@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -30,6 +32,7 @@ public class AuthWindowController {
     private Label returnMessage;
 
     private static User user;
+
 
     public void signIn(MouseEvent mouseEvent) throws IOException, SQLException, InterruptedException {
         String p = pseudoInput.getText();
@@ -64,5 +67,13 @@ public class AuthWindowController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    //TODO : sign in ENTER
+    public void signInEnter(KeyEvent keyEvent) throws SQLException, IOException, InterruptedException {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            //
+        }
     }
 }
