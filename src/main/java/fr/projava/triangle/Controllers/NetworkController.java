@@ -68,11 +68,21 @@ public class NetworkController {
      * TCP
      *************************
      * */
-    public static void sendTCP(User u, String msg) throws IOException {
-        Socket link=new Socket(u.getIpInetAddress(),u.getPort());
-        ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
-        PrintWriter writer = new PrintWriter(out, true);
-        writer.println(msg);
+    public static boolean sendTCP(User u, String msg) throws IOException {
+        Socket link= null;
+        try {
+            link = new Socket(u.getIpInetAddress(),u.getPort());
+            ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
+            PrintWriter writer = new PrintWriter(out, true);
+            writer.println(msg);
+            return true;
+        } catch (IOException e) {
+
+            ThreadController.broadcastDisconnection(u);
+            return false;
+        }
+
+
     }
     public static void openServerSocket(int port) throws IOException {serverSocket = new ServerSocket(port);}
     public static String listenTCP(int port) throws IOException {

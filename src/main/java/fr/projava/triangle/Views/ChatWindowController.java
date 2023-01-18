@@ -96,7 +96,7 @@ public class ChatWindowController implements Initializable {
     /*
     * TODO : Message format : Time + Back to line
     * */
-    public void sendMessage(MouseEvent mouseEvent) throws SQLException {
+    public void sendMessage(MouseEvent mouseEvent) throws SQLException, InterruptedException {
         if (userSelected !=null){
             if (!message.getText().isEmpty()) {
                 ConversationController.sendMessage(user.getId(),userSelected.getUser(),message.getText());
@@ -151,7 +151,7 @@ public class ChatWindowController implements Initializable {
     *   History is loaded
     *   TODO : Add Time message sent on to Screen
     */
-    private void loadHistory(String ip) throws SQLException {
+    public void loadHistory(String ip) throws SQLException {
         boxHistory.getChildren().clear();
         ArrayList<Message> h;
         h = ConversationController.loadHistory(ip,user.getId());

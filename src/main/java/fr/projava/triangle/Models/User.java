@@ -77,7 +77,6 @@ public class User {
             System.out.println("[USER] : "+ u1.getPseudo() + " ");
         }
     }
-
     public void removeUserFromContactBook (User toRmv) {
         int i=0;
         boolean found=false;

@@ -60,5 +60,9 @@ public class ThreadController {
 
     public static void stopListeningThreadTCP(){
         listenerTCP.stop();}
-    public static void sendTCP(User receiver, String msg) { new MThread("SendTCP",receiver,msg);}
+    public static boolean sendTCP(User receiver, String msg) throws InterruptedException { MThread s=new MThread("SendTCP",receiver,msg);
+        Thread aux = new Thread();
+        aux.sleep(200);
+        return s.successSend;
+    }
 }

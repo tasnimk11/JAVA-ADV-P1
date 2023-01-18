@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class TestTCP {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         User u=new User(InetAddress.getByName("10.1.5.23"), 1234, "Sofiene");
         ThreadController.sendTCP(u,"Salut");
     }
