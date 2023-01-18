@@ -54,7 +54,8 @@ public class ThreadController {
      *************************
      * */
 
-    public static void launchListeningThreadTCP(User receiver) {
+    public static void launchListeningThreadTCP(User receiver) throws IOException {
+        NetworkController.openServerSocket(receiver.getPort());
         listenerTCP =new MThread("ListeningTCP",receiver);}
 
     public static void stopListeningThreadTCP(){

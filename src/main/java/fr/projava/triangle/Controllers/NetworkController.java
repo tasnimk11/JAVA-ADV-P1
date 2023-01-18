@@ -74,8 +74,8 @@ public class NetworkController {
         PrintWriter writer = new PrintWriter(out, true);
         writer.println(msg);
     }
+    public static void openServerSocket(int port) throws IOException {serverSocket = new ServerSocket(port);}
     public static String listenTCP(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
         InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
