@@ -67,7 +67,6 @@ public class AccountController {
         String mac = getMAC();
         System.out.println("[ACCOUNT CONTROLLER] mac=" +mac);
         InetAddress ip = InetAddress.getLocalHost();
-        System.out.println();
         if(DatabaseController.existingAccount(mac, pseudo).equals("pseudo_exists")) { //Ready to connect
             String id = DatabaseController.getUserID(mac);
             System.out.println("[ACCOUNT CONTROLLER] : "+ "user id =" + id);

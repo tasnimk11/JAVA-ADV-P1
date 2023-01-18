@@ -122,7 +122,7 @@ public class MThread extends Thread {
                         String[] analyseMsg = msg.split("-");
                         String message = analyseMsg[0];
                         String adrIP = analyseMsg[1];
-                        ConversationController.receiveMessage(sender,adrIP,message);
+                        ConversationController.receiveMessage(this.receiver,adrIP,message);
                         //Notify Observer
                         subject.notifyObservers("NewMessage:"+adrIP+":"+message);
                     }
