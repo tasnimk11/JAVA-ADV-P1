@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ConversationController {
-    public static void sendMessage(String id, User user, String message) throws SQLException {
-        ThreadController.sendTCP(user,message); //TODO : should be a blocking call !
+    public static void sendMessage(String id, User user, String message) throws SQLException, InterruptedException {
+        boolean success=ThreadController.sendTCP(user,message); //TODO : should be a blocking call !
         //DB controller : add to DB
-        DatabaseController.addMessage(id,user.getIpInetAddress().getHostAddress(),message, true);
+        if (success) {DatabaseController.addMessage(id,user.getIpInetAddress().getHostAddress(),message, true);}
     }
 
     public static void receiveMessage(User user,String remoteIP, String message) throws SQLException {

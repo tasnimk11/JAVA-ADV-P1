@@ -98,7 +98,7 @@ public class ChatWindowController implements Initializable {
     /*
     * TODO : Message format : Time + Back to line
     * */
-    public void sendMessage(MouseEvent mouseEvent) throws SQLException {
+    public void sendMessage(MouseEvent mouseEvent) throws SQLException, InterruptedException {
         if (userSelected !=null){
             if (!message.getText().isEmpty()) {
                 ConversationController.sendMessage(user.getId(),userSelected.getUser(),message.getText());

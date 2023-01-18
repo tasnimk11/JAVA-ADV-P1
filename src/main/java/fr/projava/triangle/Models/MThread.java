@@ -2,6 +2,7 @@ package fr.projava.triangle.Models;
 import fr.projava.triangle.Controllers.ConversationController;
 import fr.projava.triangle.Controllers.NetworkController;
 import fr.projava.triangle.Observers.Subject;
+import fr.projava.triangle.Views.ChatWindowController;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -15,6 +16,7 @@ public class MThread extends Thread {
     private boolean connection;
     private String message;
     private Subject subject = new Subject();
+    public boolean successSend=true;
 
     /*
      * CONSTRUCTOR : LISTENING UDP OR LISTENING TCP
@@ -124,14 +126,14 @@ public class MThread extends Thread {
                         String adrIP = analyseMsg[1];
                         ConversationController.receiveMessage(this.receiver,adrIP,message);
                         //Notify Observer
-                        subject.notifyObservers("NewMessage:"+adrIP+":"+message);
+                        subject.notifyObservers("NewMessage_"+adrIP+"_"+message);
                     }
                 } catch (IOException | SQLException e) {
                     throw new RuntimeException(e);
                 }
             case "SendTCP":
                 try {
-                    NetworkController.sendTCP(receiver, message);
+                    successSend=NetworkController.sendTCP(receiver, message);
                     //TODO : If user not connected, an error message should be printed and the message should not be sent
                 } catch (IOException e) {
                     throw new RuntimeException(e);

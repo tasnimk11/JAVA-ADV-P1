@@ -12,8 +12,8 @@ public class ReceivedMessageObserver implements Observer {
     @Override
     public void update(String message) {
         if(message.startsWith("NewMessage")){
-            String[] msg = message.split(":");
-            if(ChatWindowController.isSelected(msg[0])) { // check if the sender is selected
+            String[] msg = message.split("_");
+            if(ChatWindowController.isSelected(msg[1])) { // check if the sender is selected
                 Platform.runLater(() -> cwc.addMessageReceived(msg[1],msg[2])); // add message to the history
             } else { // show notification
                 Platform.runLater(() -> cwc.notifyNewMessage(msg[1]));
