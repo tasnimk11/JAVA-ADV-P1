@@ -55,7 +55,7 @@ public class AuthWindowController {
     }
 
 
-    public void goToChat(MouseEvent mouseEvent) throws IOException {
+    public void goToChat(MouseEvent mouseEvent) throws IOException, InterruptedException {
         FXMLLoader loader = new FXMLLoader(AuthWindowController.class.getResource("/ChatWindow.fxml"));
         Parent root = loader.load();
         ChatWindowController cwc = loader.getController();

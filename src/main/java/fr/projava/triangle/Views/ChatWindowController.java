@@ -15,10 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -55,6 +52,8 @@ public class ChatWindowController implements Initializable {
     private Label lblErrorPseudo;
     private static User user;
     private static UserObject userSelected;
+    @FXML
+    private ScrollPane scrollpaneHistory;
 
 
     private final Subject subject = new Subject();
@@ -165,6 +164,7 @@ public class ChatWindowController implements Initializable {
             }
             boxHistory.getChildren().add(msg);
             boxHistory.setSpacing(5);
+            boxHistory.heightProperty().addListener(observable -> scrollpaneHistory.setVvalue(1.0));
         }
     }
 
