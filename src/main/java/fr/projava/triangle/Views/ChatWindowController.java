@@ -54,6 +54,8 @@ public class ChatWindowController implements Initializable {
     private static UserObject userSelected;
     @FXML
     private ScrollPane scrollpaneHistory;
+    @FXML
+    private Label lblMessageNotSent ;
 
 
     private boolean listen = false;
@@ -101,10 +103,14 @@ public class ChatWindowController implements Initializable {
     public void sendMessage(MouseEvent mouseEvent) throws SQLException, InterruptedException {
         if (userSelected !=null){
             if (!message.getText().isEmpty()) {
-                ConversationController.sendMessage(user.getId(),userSelected.getUser(),message.getText());
-                MessageObject msg = new MessageObject(user.getPseudo()+" >> " + message.getText(),true,boxHistory.getWidth());
-                boxHistory.getChildren().add(msg);
-                message.clear();
+                if ( ConversationController.sendMessage(user.getId(),userSelected.getUser(),message.getText()).equals("message_sent")){
+                    MessageObject msg = new MessageObject(user.getPseudo()+" >> " + message.getText(),true,boxHistory.getWidth());
+                    boxHistory.getChildren().add(msg);
+                    message.clear();
+                } else {
+                    lblMessageNotSent.setText("User disconnected");
+                }
+
             }
         }
     }
@@ -193,7 +199,9 @@ public class ChatWindowController implements Initializable {
     *
      */
     public void showConnectedUsers(MouseEvent mouseEvent){
+        lblMessageNotSent.setText("  ");
         vboxConnectedUsers.getChildren().clear();
+        boxHistory.getChildren().clear();
         ArrayList<User> connectedUsers = user.getContactBook();
         for(User u : connectedUsers){
             UserObject o = new UserObject(u);
