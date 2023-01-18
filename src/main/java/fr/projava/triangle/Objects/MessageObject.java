@@ -25,7 +25,6 @@ public class MessageObject extends Label {
 
 
     /*
-    * TODO
     * given a message length,
     *   find out how many characters are needed per line
     *   calculates how many lines are needed

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ConversationController {
     public static String sendMessage(String id, User user, String message) throws SQLException, InterruptedException {
-        boolean success=ThreadController.sendTCP(user,message); //TODO : should be a blocking call !
+        boolean success=ThreadController.sendTCP(user,message);
         //DB controller : add to DB
         System.out.println("Le success est: "+ success);
         if (success)  {

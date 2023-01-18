@@ -16,7 +16,7 @@
                </image>
             </ImageView>
             <AnchorPane layoutY="429.0" prefHeight="23.0" prefWidth="780.0" style="-fx-background-color: #000000;" />
-            <Button fx:id="btnDisconnect" layoutX="235.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#disconnect" style="-fx-background-color: transparent;">
+            <Button fx:id="btnDisconnect" layoutX="234.0" layoutY="357.0" mnemonicParsing="false" onMouseClicked="#disconnect" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="88.0" onMouseClicked="#disconnect" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -66,7 +66,6 @@
                   <VBox fx:id="boxHistory" prefHeight="309.0" prefWidth="384.0" style="-fx-background-color: transparent;" />
                </content>
             </ScrollPane>
-            <Button fx:id="btnShowConnected" layoutX="220.0" layoutY="363.0" mnemonicParsing="false" onMouseClicked="#showConnectedUsers" style="-fx-background-color: #eedce5;" text="connected?" />
             <Button fx:id="btnChangePseudo" layoutX="155.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#changePseudo" prefHeight="33.0" prefWidth="26.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="37.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">

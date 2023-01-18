@@ -133,7 +133,6 @@ public class MThread extends Thread {
             case "SendTCP":
                 try {
                     successSend=NetworkController.sendTCP(receiver, message);
-                    //TODO : If user not connected, an error message should be printed and the message should not be sent
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

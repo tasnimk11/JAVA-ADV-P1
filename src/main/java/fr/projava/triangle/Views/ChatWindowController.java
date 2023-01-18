@@ -63,34 +63,18 @@ public class ChatWindowController implements Initializable {
     private final Subject subject = new Subject();
     private final ConnectedUsersObserver connectedUsersObserver = new ConnectedUsersObserver(this);
     private final ReceivedMessageObserver receivedMessageObserver = new ReceivedMessageObserver(this);
-    /*
-    * *************************************
-    * ONLY FOR TESTS
-    */
-    @FXML
-    private Button btnShowConnected;
 
 
-    /*
-    TODO : take off testing options + test for real connected users
-     */
+
     public void setUser(User user) throws UnknownHostException {
         ChatWindowController.user = user;
         if(user!=null) {
             lblPseudo.setText(ChatWindowController.user.getPseudo());
-            //ONLY FOR TEST
-            String ip1 = "192.17.0.4";
-            String ip2 = "195.17.0.4";
-            String pseudo1 = "User1";
-            String pseudo2 = "User2";
-            User testUser1 = new User(InetAddress.getByName(ip1), 8000, pseudo1);
-            User testUser2 = new User(InetAddress.getByName(ip2), 8001, pseudo2);
-
-            user.addUserToContactBook(testUser1);
-            user.addUserToContactBook(testUser2);
+            refreshConnectedUsers();
         } else {
             System.out.println("[ChatWindow CONTROLLER] : "+ "USER NULL");
         }
+
     }
 
     public static boolean isSelected(String userPseudo) {
@@ -194,10 +178,6 @@ public class ChatWindowController implements Initializable {
         stage.show();
     }
 
-    /*
-    * TODO : take off test examples and load REALLY connected users
-    *
-     */
     public void showConnectedUsers(MouseEvent mouseEvent){
         lblMessageNotSent.setText("  ");
         vboxConnectedUsers.getChildren().clear();
@@ -222,10 +202,6 @@ public class ChatWindowController implements Initializable {
         }
     }
 
-    /*
-     * TODO : take off test examples and load REALLY connected users
-     *
-     */
     public void refreshConnectedUsers(){
         vboxConnectedUsers.getChildren().clear();
         ArrayList<User> connectedUsers = user.getContactBook();
