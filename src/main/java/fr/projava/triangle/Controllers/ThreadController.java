@@ -63,6 +63,7 @@ public class ThreadController {
     public static boolean sendTCP(User receiver, String msg) throws InterruptedException { MThread s=new MThread("SendTCP",receiver,msg);
         Thread aux = new Thread();
         aux.sleep(200);
+        System.out.println("The message was "+ s.successSend);
         return s.successSend;
     }
 }

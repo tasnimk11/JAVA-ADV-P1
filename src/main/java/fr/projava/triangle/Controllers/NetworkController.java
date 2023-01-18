@@ -77,8 +77,7 @@ public class NetworkController {
             writer.println(msg);
             return true;
         } catch (IOException e) {
-
-            ThreadController.broadcastDisconnection(u);
+            //ThreadController.broadcastDisconnection(u);
             return false;
         }
 
