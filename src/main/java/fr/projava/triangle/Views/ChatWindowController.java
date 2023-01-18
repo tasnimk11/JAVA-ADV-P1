@@ -56,6 +56,8 @@ public class ChatWindowController implements Initializable {
     private ScrollPane scrollpaneHistory;
 
 
+    private boolean listen = false;
+
     private final Subject subject = new Subject();
     private final ConnectedUsersObserver connectedUsersObserver = new ConnectedUsersObserver(this);
     private final ReceivedMessageObserver receivedMessageObserver = new ReceivedMessageObserver(this);
@@ -151,7 +153,7 @@ public class ChatWindowController implements Initializable {
     *   History is loaded
     *   TODO : Add Time message sent on to Screen
     */
-    private void loadHistory(String ip) throws SQLException {
+    public void loadHistory(String ip) throws SQLException {
         boxHistory.getChildren().clear();
         ArrayList<Message> h;
         h = ConversationController.loadHistory(ip,user.getId());
@@ -164,9 +166,13 @@ public class ChatWindowController implements Initializable {
             }
             boxHistory.getChildren().add(msg);
             boxHistory.setSpacing(5);
-            boxHistory.heightProperty().addListener(observable -> scrollpaneHistory.setVvalue(1.0));
+            if(!listen){
+                listen = true;
+                boxHistory.heightProperty().addListener(observable -> scrollpaneHistory.setVvalue(1.0));
+            }
         }
     }
+
 
     public void disconnect(MouseEvent mouseEvent) throws IOException {
         AccountController.closeConnection();

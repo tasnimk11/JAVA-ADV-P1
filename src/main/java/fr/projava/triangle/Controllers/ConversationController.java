@@ -2,6 +2,7 @@ package fr.projava.triangle.Controllers;
 
 import fr.projava.triangle.Models.Message;
 import fr.projava.triangle.Models.User;
+import fr.projava.triangle.Views.ChatWindowController;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
