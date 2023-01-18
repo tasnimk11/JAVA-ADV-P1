@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="0744f2a1-2cb9-40b6-b55f-551f9da89318">
-      <console name="triangle.db" type="STANDARD" schema="" session="Main"><![CDATA[SELECT * FROM users]]></console>
+      <console name="triangle.db" type="STANDARD" schema="" session="Main"><![CDATA[SELECT * FROM chat_history]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">

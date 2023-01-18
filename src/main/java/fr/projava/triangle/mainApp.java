@@ -1,7 +1,9 @@
 package fr.projava.triangle;
 
+import fr.projava.triangle.Controllers.AccountController;
 import fr.projava.triangle.Controllers.DatabaseController;
 import fr.projava.triangle.Controllers.ThreadController;
+import fr.projava.triangle.Views.ChatWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +29,19 @@ public class mainApp extends Application {
         stage.getIcons().add(new Image(mainApp.class.getResourceAsStream("/images/logo.png")));
         stage.setScene(authScene);
         stage.show();
+
+        stage.setOnCloseRequest(
+                event -> {
+                    event.consume();
+                    if (!stage.getScene().equals(authScene)){
+                        try {
+                            AccountController.closeConnection();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    stage.close();
+        });
 
     }
 
