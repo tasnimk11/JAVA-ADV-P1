@@ -15,7 +15,6 @@ public class MThread extends Thread {
     private User sender;
     private boolean connection;
     private String message;
-    private Subject subject = new Subject();
     public boolean successSend=true;
 
     /*
@@ -87,7 +86,7 @@ public class MThread extends Thread {
                             //REMOVE from contactBook
                             this.receiver.removeUserFromContactBook(u);
                             //notify observer
-                            subject.notifyObservers("ConnectedUsers");
+                            Subject.notifyObservers("ConnectedUsers");
                             System.out.println("[MThread] : "+"User " + u.getPseudo() + " removed from contact book successfully!");
                         } else if (this.receiver.getIpInetAddress().toString().equals(adr)) {
                             System.out.println("[MThread] : "+"I am here");
@@ -101,9 +100,8 @@ public class MThread extends Thread {
                                     System.out.println("[MThread] : "+"Adding " + u.getPseudo() + "to contact Book");
                                     this.receiver.addUserToContactBook(u);
                                     //notify observer
-                                    subject.notifyObservers("ConnectedUsers");
-                                    Subject subject = new Subject();
-                                    subject.notifyObservers("refresh_users");
+                                    Subject.notifyObservers("ConnectedUsers");
+                                    Subject.notifyObservers("refresh_users");
                                 }
                             } else {
                                 //LAUNCH A THREAD SEND UDP
@@ -126,7 +124,8 @@ public class MThread extends Thread {
                         String adrIP = analyseMsg[1];
                         ConversationController.receiveMessage(this.receiver,adrIP,message);
                         //Notify Observer
-                        subject.notifyObservers("NewMessage_"+adrIP+"_"+message);
+                        User aux=this.receiver.findByAddress(adrIP);
+                        Subject.notifyObservers("NewMessage_"+aux.getPseudo()+"_"+message);
                     }
                 } catch (IOException | SQLException e) {
                     throw new RuntimeException(e);

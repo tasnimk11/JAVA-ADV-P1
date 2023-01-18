@@ -136,5 +136,20 @@ public class User {
         return found;
 
     }
+    public User findByAddress(String adr) { 
+        String adr2="/"+adr;
+        int i=0;
+        User u1 = null;
+        boolean found=false;
+        while((i < this.getContactBook().size())&&(!found)) {
+             u1=this.getContactBook().get(i);
+            if (u1.getIpInetAddress().toString().equals(adr2)) {
+                found=true;
+            }
+            i++;
+        }
+        return u1;
+        
+    }
 
 }

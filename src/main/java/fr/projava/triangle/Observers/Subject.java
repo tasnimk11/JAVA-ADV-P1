@@ -3,7 +3,7 @@ package fr.projava.triangle.Observers;
 import java.util.ArrayList;
 
 public class Subject {
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private static ArrayList<Observer> observers = new ArrayList<>();
 
     public void addObserver(Observer observer){
         observers.add(observer);
@@ -13,7 +13,7 @@ public class Subject {
         observers.remove(observer);
     }
 
-    public void notifyObservers(String message){
+    public static void notifyObservers(String message){
         for(Observer o : observers){
             o.update(message);
         }

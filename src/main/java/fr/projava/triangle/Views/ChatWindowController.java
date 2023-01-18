@@ -108,7 +108,7 @@ public class ChatWindowController implements Initializable {
                     boxHistory.getChildren().add(msg);
                     message.clear();
                 } else {
-                    lblMessageNotSent.setText("User disconnected");
+                    lblMessageNotSent.setText("User disconnected!");
                 }
 
             }
