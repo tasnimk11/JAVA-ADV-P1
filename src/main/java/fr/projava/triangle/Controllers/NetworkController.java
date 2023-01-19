@@ -2,6 +2,7 @@ package fr.projava.triangle.Controllers;
 import fr.projava.triangle.Models.User;
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class NetworkController {
     private static DatagramSocket socket;
@@ -12,6 +13,36 @@ public class NetworkController {
     * UDP
     *************************
     * */
+    public static String findBroadcastAddress() {
+        String filePath = "BroadcastAddress";
+        String nextWordAfterBroadcast = "";
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filePath)))) {
+            // Boucle à travers chaque ligne du fichier
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                // Utilisez un espace comme délimiteur
+                Scanner lineScanner = new Scanner(line).useDelimiter(" ");
+                // Boucle à travers chaque mot de la ligne
+                while (lineScanner.hasNext()) {
+                    String word = lineScanner.next();
+                    if (word.equals("BroadcastAddress:")) {
+                        // Si le mot actuel est "broadcast", récupérez le prochain mot
+                        if (lineScanner.hasNext()) {
+                            nextWordAfterBroadcast = lineScanner.next();
+                            break;
+                        }
+                    }
+                }
+                lineScanner.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Le mot suivant "broadcast" est maintenant stocké dans la variable nextWordAfterBroadcast
+        System.out.println(nextWordAfterBroadcast);
+        return nextWordAfterBroadcast;
+
+    }
     public static void openSocketUDP() throws SocketException {socket = new DatagramSocket(1108);}
     public static void broadcastUDP(User u, boolean connection) throws IOException {
         int cnx;
@@ -21,7 +52,7 @@ public class NetworkController {
         try {
             bcMsg = u.getPseudo() + "_" + u.getIpInetAddress() + "_" + u.getPort() + "_" + cnx;
             byte[] buffer = bcMsg.getBytes();
-            String broadcastAddress = "10.1.255.255"; //TODO : adapt according to network
+            String broadcastAddress = findBroadcastAddress(); //TODO : adapt according to network
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length, InetAddress.getByName(broadcastAddress), 1108);
             DatagramSocket socket = new DatagramSocket();
             socket.setBroadcast(true);
