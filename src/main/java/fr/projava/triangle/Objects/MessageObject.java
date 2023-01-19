@@ -31,12 +31,13 @@ public class MessageObject extends Label {
     *   returns the nbr of line needed * height of message
     * */
     private double calcHeight(int length){
-        return minHeight*(length/maxLetters);
+        int a=(int)(length / maxLetters)+1;
+        return minHeight*a;
     }
 
     private void setSizes(int length){
         this.setMaxSize(minWidth, calcHeight(length));
-        this.setMinSize(minWidth, minHeight);
+        this.setMinSize(minWidth, calcHeight(length));
         this.setPrefSize(minWidth, calcHeight(length));
     }
 }

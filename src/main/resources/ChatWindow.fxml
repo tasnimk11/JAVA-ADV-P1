@@ -61,7 +61,7 @@
                   </LinearGradient>
                </textFill>
             </Label>
-            <ScrollPane fx:id="scrollpaneHistory" layoutX="355.0" layoutY="38.0" prefHeight="312.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-fit-to-width: true;">
+            <ScrollPane fx:id="scrollpaneHistory" hbarPolicy="NEVER" layoutX="355.0" layoutY="38.0" prefHeight="312.0" prefWidth="391.0" style="-fx-background: transparent; -fx-background-color: transparent; -fx-fit-to-width: true;" vbarPolicy="NEVER">
                <content>
                   <VBox fx:id="boxHistory" prefHeight="309.0" prefWidth="384.0" style="-fx-background-color: transparent;" />
                </content>
