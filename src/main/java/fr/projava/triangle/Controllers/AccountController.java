@@ -77,6 +77,7 @@ public class AccountController {
                 message = "Successful Connection";
                 ThreadController.launchListeningThreadTCP(user);
             } else {
+                NetworkController.closeListenUDP();
                 message  = "Unable to connect";
             }
 
