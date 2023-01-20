@@ -2,6 +2,7 @@ package fr.projava.triangle.Controllers;
 import fr.projava.triangle.Models.User;
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class NetworkController {
@@ -115,13 +116,29 @@ public class NetworkController {
 
 
     }
+    private static String processText(String msg) {
+        if (msg.length()>6){
+            return msg.substring(6);
+        } else {
+            String aux =msg;
+            for (int i=0 ; i<msg.length();i++) {
+                int a=(int)msg.charAt(i);
+                if(a<0 || a>127){
+                    aux.substring(1);
+                } else {
+                    break;
+                }
+            }
+            return aux;
+        }
+    }
     public static void openServerSocket(int port) throws IOException {serverSocket = new ServerSocket(port);}
     public static String listenTCP(int port) throws IOException {
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream());
+        InputStreamReader isr =new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8);
         BufferedReader in = new BufferedReader(isr);
-        String msg = in.readLine().substring(6);
+        String msg = processText(in.readLine());
         System.out.println(msg);
         InetSocketAddress socketAddress = (InetSocketAddress) clientSocket.getRemoteSocketAddress();
         String clientIpAddress = socketAddress.getAddress().getHostAddress();
