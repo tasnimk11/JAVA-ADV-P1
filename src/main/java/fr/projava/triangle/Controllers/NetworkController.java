@@ -105,7 +105,7 @@ public class NetworkController {
         try {
             link = new Socket(u.getIpInetAddress(),u.getPort());
             ObjectOutputStream out= new ObjectOutputStream(link.getOutputStream());
-            PrintWriter writer = new PrintWriter(out, true);
+            PrintWriter writer = new PrintWriter(out,true);
             writer.println(msg);
             return true;
         } catch (IOException e) {
