@@ -2,7 +2,6 @@ package fr.projava.triangle.Models;
 import fr.projava.triangle.Controllers.ConversationController;
 import fr.projava.triangle.Controllers.NetworkController;
 import fr.projava.triangle.Observers.Subject;
-import fr.projava.triangle.Views.ChatWindowController;
 
 import java.io.IOException;
 import java.net.InetAddress;

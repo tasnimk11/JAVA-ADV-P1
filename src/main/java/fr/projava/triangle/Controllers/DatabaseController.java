@@ -10,10 +10,9 @@ public class DatabaseController {
     static Connection connection = null;
     public DatabaseController() {
         try {
-            String url = "jdbc:sqlite:src/main/java/fr/projava/triangle/db/triangle.db";
+            String url = "jdbc:sqlite:" + getClass().getClassLoader().getResource("db/triangle.db").getPath();
             connection = DriverManager.getConnection(url);
-            System.out.println("[DATABASE CONTROLLER] : "+"Connection to DB established.");
-
+            System.out.println("[DATABASE CONTROLLER] : Connection to database.");
         } catch (SQLException e) {
             System.out.println("[DATABASE CONTROLLER] : "+ e.getMessage());
         }
