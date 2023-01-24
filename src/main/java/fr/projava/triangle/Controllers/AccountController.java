@@ -9,6 +9,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.Enumeration;
 import java.util.UUID;
 
 
@@ -19,15 +20,20 @@ public class AccountController {
 
     private static String getMAC() throws UnknownHostException, SocketException {
         InetAddress localHost = InetAddress.getLocalHost();
-        NetworkInterface ni = NetworkInterface.getByInetAddress(localHost);
-        byte[] hardwareAddress = ni.getHardwareAddress();
+        Enumeration<NetworkInterface> ni = NetworkInterface.getNetworkInterfaces();
 
-        String[] hexadecimal = new String[hardwareAddress.length];
-        for (int i = 0; i < hardwareAddress.length; i++) {
-            hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+        while(ni.hasMoreElements()){
+            byte[] hardwareAddress = ni.nextElement().getHardwareAddress();
+            String[] hexadecimal= new String[hardwareAddress.length];
+            for (int i = 0; i < hardwareAddress.length; i++) {
+                hexadecimal[i] = String.format("%02X", hardwareAddress[i]);
+            }
+            return String.join("-", hexadecimal);
         }
-        String macAddress = String.join("-", hexadecimal);
-        return macAddress;
+        /*byte[] hardwareAddress = ni.getHardwareAddress();
+        System.out.println("[ACCOUNT CONTROLLER] : mac 1 = "+ hardwareAddress);
+        */
+        return "No mac";
     }
     /*
     * Gets Pseudo from authentication window
