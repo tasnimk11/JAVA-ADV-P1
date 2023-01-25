@@ -47,15 +47,14 @@ Depending on the situation, the system architecture changes. It provides differe
 
 ## 2.4. Backstory and Graphics
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7f6fcb90-be08-4dc5-8717-e8ed362e1a3a/Untitled.png)
+![traingle](https://user-images.githubusercontent.com/99467850/214590794-4f260c2d-c105-47cd-9667-f0678a3d9bd8.png)
 
 We chose “**Triangle”** as the name of our app for various reasons:
-
 - It is simple, easy to remember, and easy to recognize.
 - This is our first collaborative project as a team. We value project management and teamwork. The shape of a triangle represents the three main stages of a project: planning, executing, and testing.
 - It is a reference to the three points of a triangle symbolizing the three main features of the application: authenticating, sending, and receiving.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/052a1d90-f419-4fbf-a8c2-5a8c24617203/Untitled.png)
+![logo](https://user-images.githubusercontent.com/99467850/214590719-f5da0488-06ec-40af-9ccb-93d58de133c2.png)
 
 We chose a logo for the project that is circle-shaped:
 
@@ -92,6 +91,7 @@ There are many ways to deploy the app. Here are two ways we suggest:
 ## 3.2. Behavior and functioning
 
 1. Authentication window 
+![view](https://user-images.githubusercontent.com/99467850/214590937-651977d6-b31b-445c-9f31-80b6632853da.png)
     - Signing up
         - Create an account by entering a pseudo and hitting the button “**Sign up**”.
         - An entry is added to the database with a unique ID according to the MAC address of the computer (implementation ONLY for Linux app).
@@ -102,9 +102,8 @@ There are many ways to deploy the app. Here are two ways we suggest:
             - If another connected user is using the pseudo currently, an error message is displayed: “**Unable to connect**”.
             - If pseudo is valid to use, the user is connected: switch to Chat window.
     
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/506eace4-c0da-48cb-8fb9-d798c1fc1686/Untitled.png)
-    
 2. Chat Window 
+![view2](https://user-images.githubusercontent.com/99467850/214591156-3bc9444c-058b-4b30-990f-9c2322525c23.png)
     - View Connected users + update user
         - Once logged in, you can view users disconnecting, connecting, and updating their pseudo on runtime.
     - Initiating Conversation
@@ -128,7 +127,6 @@ There are many ways to deploy the app. Here are two ways we suggest:
     - Close app
         - Using the closing button, the app stops turning and disconnection is broadcasted automatically.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/415ee305-99b0-487e-86ae-96c3b2a07a81/Untitled.png)
 
 # 4. Reach out!
 
