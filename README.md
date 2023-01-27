@@ -7,7 +7,7 @@ Depending on the situation, the system architecture changes. It provides differe
 
 ## 2.1. Requirements
 
-### F**unctional Requirements**
+### **Functional Requirements**
 
 - The user can create an account.
 - The user can log in to the account.
@@ -42,7 +42,7 @@ Depending on the situation, the system architecture changes. It provides differe
 - **Client-Server Model**: Every user is a Client and a Server at the same time.
 - **TCP** is used for sending and receiving messages.
 - **UDP** is used during the connection phase, the update of the connected users (disconnection, pseudo validation...).
-- **Multi-threaded System**: Synchronous and Asynchronous behavior.
+- **Multithreaded System**: Synchronous and Asynchronous behavior.
 - **Observer pattern**: update on runtime → receiving a new message and seeing a live contact book of the connected users.
 
 ## 2.4. Backstory and Graphics
@@ -69,29 +69,42 @@ We chose a dark-mode arcade theme (purple, pink, black).
 
 There are many ways to deploy the app. Here are two ways we suggest:
 
-### **First Method: Git**
+### **First Method: Executable JAR**
+
+1. Download the jar corresponding to your OS: [Linux](https://drive.google.com/file/d/1CDLqvfQEhxpkMyi9jZjWH9VMaSAWm9yV/view?usp=sharing) or [Windows](https://drive.google.com/file/d/1G-EAPIkDAuuzMSXChI6kCbY9hVLkf6u6/view?usp=sharing). (mac version coming soon)
+
+2. Open the archive with any tool (Don’t unzip it).
+    - *Locate the “**BroadcastAddress**” in the root file and open it with any text editor.*
+        -  *Open “**BroadcastAddress**” with any text editor.*
+        - *change the broadcast address to that of your network*
+            - *if you are on a Linux OS, you can use the* `ifconfig` *command in the terminal.*
+            - *if you are on a Windows OS, you can use the* `ipconfig` *command in the terminal.*
+    - *Make sure you use the correct address, in the correct format and preserve the format of the file.*
+3. Run the App:
+    - *If you are on Linux  run `java –jar triangle-linux.jar` on the terminal.*
+    - *If you are on Windows  just double-click on the jar.*
+
+
+
+### **Second Method: Git**
 
 1. Clone the git repo using the following command:
     - *if you are on a Linux OS :*  `git clone -b triangle-linux https://github.com/tasnimk11/MessagingApp.git`
     - *if you are on a Windows OS :*  `git clone -b triangle-windows https://github.com/tasnimk11/MessagingApp.git`
 2. Move to the root directory of the project: that contains the pom.xml file
     - *Open “**BroadcastAddress**” with any text editor.*
-        - *change the broadcast address to that of your network*
+    - *change the broadcast address to that of your network*
         - *if you are on a Linux OS, you can use the* `ifconfig` *command in the terminal.*
-        - *if you are on a Windows OS, you can use the* `ipconfig *`command in the terminal.*
-- *Make sure you use the correct address, in the correct format.*
-- *Make sure you preserve the format of the text file.*
-1. Open the terminal and run the following maven command : `mvn clean javafx:run`*.*
+        - *if you are on a Windows OS, you can use the* `ipconfig` *command in the terminal.*
+    - *Make sure you use the correct address, in the correct format and preserve the format of the file.*
+3. Open the terminal and run the following maven command : `mvn clean javafx:run`*.*
     - *Make sure you have Java and Maven installed, and the environment variables of Java and Maven configured correctly.*
 
-### **Second Method: Git**
-
-- Use an executable jar: still not 100% functional à work in progress
 
 ## 3.2. Behavior and functioning
 
-1. Authentication window 
-![view](https://user-images.githubusercontent.com/99467850/214590937-651977d6-b31b-445c-9f31-80b6632853da.png)
+1. Authentication window
+![FinalView1](https://user-images.githubusercontent.com/99467850/215125672-528a6fdf-b51a-4240-80a4-86bab60bc189.png)
     - Signing up
         - Create an account by entering a pseudo and hitting the button “**Sign up**”.
         - An entry is added to the database with a unique ID according to the MAC address of the computer (implementation ONLY for Linux app).
@@ -101,9 +114,9 @@ There are many ways to deploy the app. Here are two ways we suggest:
             - If the pseudo is not linked to any account (wrong, or account not created already), an error message is displayed: “**Account not found**”.
             - If another connected user is using the pseudo currently, an error message is displayed: “**Unable to connect**”.
             - If pseudo is valid to use, the user is connected: switch to Chat window.
-    
-2. Chat Window 
-![view2](https://user-images.githubusercontent.com/99467850/214591156-3bc9444c-058b-4b30-990f-9c2322525c23.png)
+
+2. Chat Window
+![FinalView2](https://user-images.githubusercontent.com/99467850/215125647-5537c2ab-fdc8-40ae-b416-6a9f4365f453.png)
     - View Connected users + update user
         - Once logged in, you can view users disconnecting, connecting, and updating their pseudo on runtime.
     - Initiating Conversation
