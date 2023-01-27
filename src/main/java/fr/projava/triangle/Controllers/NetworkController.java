@@ -10,14 +10,15 @@ public class NetworkController {
     private static ServerSocket serverSocket;
 
     /*
-    *************************
-    * UDP
-    *************************
-    * */
+     *************************
+     * UDP
+     *************************
+     * */
     public static String findBroadcastAddress() {
-        String filePath = "BroadcastAddress";
+        String filePath = "/BroadcastAddress";
+        URL url = NetworkController.class.getClassLoader().getResource(filePath);
         String nextWordAfterBroadcast = "";
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filePath)))) {
+        try (Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(NetworkController.class.getResourceAsStream(filePath))))) {
             // Boucle à travers chaque ligne du fichier
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -36,11 +37,9 @@ public class NetworkController {
                 }
                 lineScanner.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         // Le mot suivant "broadcast" est maintenant stocké dans la variable nextWordAfterBroadcast
-        System.out.println(nextWordAfterBroadcast);
+        System.out.println("[NETWORK CONTROLLER] BC address : " + nextWordAfterBroadcast);
         return nextWordAfterBroadcast;
 
     }
@@ -61,21 +60,21 @@ public class NetworkController {
             socket.close();
         }
         catch(NullPointerException e) {
-            System.out.println("[NETWORK CONTROLLER] : "+ e.getMessage());
+            System.out.println("[NETWORK CONTROLLER] BC address : "+ e.getMessage());
         }
     }
     public static void sendUDP(User sender, User receiver, boolean connection) throws IOException {
-            int cnx=0;
-            if (connection) {cnx=1;}
-            String bcMsg = sender.getPseudo()+"_"+sender.getIpInetAddress()+"_"+sender.getPort()+"_"+cnx;
-            byte[] buffer = bcMsg.getBytes();
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIpInetAddress(), 1108);
-            DatagramSocket socket = new DatagramSocket();
-            socket.setBroadcast(true);
-            socket.send(packet);
-            socket.close();
+        int cnx=0;
+        if (connection) {cnx=1;}
+        String bcMsg = sender.getPseudo()+"_"+sender.getIpInetAddress()+"_"+sender.getPort()+"_"+cnx;
+        byte[] buffer = bcMsg.getBytes();
+        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, receiver.getIpInetAddress(), 1108);
+        DatagramSocket socket = new DatagramSocket();
+        socket.setBroadcast(true);
+        socket.send(packet);
+        socket.close();
     }
-     public static String listenUDP() throws IOException {
+    public static String listenUDP() throws IOException {
         byte[] buffer = new byte[512];
         DatagramPacket response = new DatagramPacket(buffer, buffer.length);
         socket.receive(response);
