@@ -104,7 +104,7 @@ There are many ways to deploy the app. Here are two ways we suggest:
 ## 3.2. Behavior and functioning
 
 1. Authentication window
-   ![view](https://user-images.githubusercontent.com/99467850/214590937-651977d6-b31b-445c-9f31-80b6632853da.png)
+![FinalView1](https://user-images.githubusercontent.com/99467850/215125672-528a6fdf-b51a-4240-80a4-86bab60bc189.png)
     - Signing up
         - Create an account by entering a pseudo and hitting the button “**Sign up**”.
         - An entry is added to the database with a unique ID according to the MAC address of the computer (implementation ONLY for Linux app).
@@ -116,7 +116,7 @@ There are many ways to deploy the app. Here are two ways we suggest:
             - If pseudo is valid to use, the user is connected: switch to Chat window.
 
 2. Chat Window
-   ![view2](https://user-images.githubusercontent.com/99467850/214591156-3bc9444c-058b-4b30-990f-9c2322525c23.png)
+![FinalView2](https://user-images.githubusercontent.com/99467850/215125647-5537c2ab-fdc8-40ae-b416-6a9f4365f453.png)
     - View Connected users + update user
         - Once logged in, you can view users disconnecting, connecting, and updating their pseudo on runtime.
     - Initiating Conversation
