@@ -15,9 +15,10 @@ public class NetworkController {
     *************************
     * */
     public static String findBroadcastAddress() {
-        String filePath = "BroadcastAddress";
+        String filePath = "/BroadcastAddress";
+        URL url = NetworkController.class.getClassLoader().getResource(filePath);
         String nextWordAfterBroadcast = "";
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filePath)))) {
+        try (Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(NetworkController.class.getResourceAsStream(filePath))))) {
             // Boucle à travers chaque ligne du fichier
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -36,11 +37,9 @@ public class NetworkController {
                 }
                 lineScanner.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         // Le mot suivant "broadcast" est maintenant stocké dans la variable nextWordAfterBroadcast
-        System.out.println(nextWordAfterBroadcast);
+        System.out.println("[NETWORK CONTROLLER] BC address : " + nextWordAfterBroadcast);
         return nextWordAfterBroadcast;
 
     }
@@ -61,7 +60,7 @@ public class NetworkController {
             socket.close();
         }
         catch(NullPointerException e) {
-            System.out.println("[NETWORK CONTROLLER] : "+ e.getMessage());
+            System.out.println("[NETWORK CONTROLLER] BC address : "+ e.getMessage());
         }
     }
     public static void sendUDP(User sender, User receiver, boolean connection) throws IOException {

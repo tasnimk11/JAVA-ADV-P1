@@ -3,7 +3,6 @@ package fr.projava.triangle;
 import fr.projava.triangle.Controllers.AccountController;
 import fr.projava.triangle.Controllers.DatabaseController;
 import fr.projava.triangle.Controllers.ThreadController;
-import fr.projava.triangle.Views.ChatWindowController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

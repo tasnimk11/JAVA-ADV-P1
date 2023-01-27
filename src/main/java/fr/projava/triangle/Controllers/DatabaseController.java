@@ -8,14 +8,58 @@ import java.util.ArrayList;
 
 public class DatabaseController {
     static Connection connection = null;
-    public DatabaseController() {
-        try {
-            String url = "jdbc:sqlite:" + getClass().getClassLoader().getResource("db/triangle.db").getPath();
-            connection = DriverManager.getConnection(url);
-            System.out.println("[DATABASE CONTROLLER] : Connection to database.");
-        } catch (SQLException e) {
-            System.out.println("[DATABASE CONTROLLER] : "+ e.getMessage());
+    public DatabaseController() throws SQLException {
+        String url = "jdbc:sqlite:triangle.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("[DATABASE CONTROLLER] : Connection to database.");
+
+        if(!connection.isClosed()) {
+            System.out.println("[DATABASE CONTROLLER] : Connection to database is successful.");
+        } else {
+            System.out.println("[DATABASE CONTROLLER] : Connection to database failed.");
         }
+
+        //TODO : Verify if tables exist + create them if not
+        ResultSet usersTable = connection.getMetaData().getTables(null, null, "users", null);
+        if(usersTable.next()) {
+            System.out.println("[DATABASE CONTROLLER] : Table users exists");
+        } else {
+            System.out.println("[DATABASE CONTROLLER] : Table users does not exist");
+            createUsersTable();
+        }
+
+        ResultSet historyTable = connection.getMetaData().getTables(null, null, "chat_history", null);
+        if(historyTable.next()) {
+            System.out.println("[DATABASE CONTROLLER] : Table chat_history exists");
+        } else {
+            System.out.println("[DATABASE CONTROLLER] : Table chat_history does not exist");
+            createHistoryTable();
+        }
+        
+    }
+
+    private void createUsersTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);  // set timeout to 30 sec.
+        statement.executeUpdate("CREATE Table users( " +
+                "    MAC_address VARCHAR(30) not null unique," +
+                "    Pseudo       VARCHAR(20) not null," +
+                "    User_ID      VARCHAR     not null);"
+        );
+        System.out.println("[DATABASE CONTROLLER] : Table users created");
+    }
+
+    private void createHistoryTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);  // set timeout to 30 sec.
+        statement.executeUpdate("CREATE TABLE chat_history(" +
+                "    Remote_User VARCHAR(17)           not null," +
+                "    Message      VARCHAR(100)          not null," +
+                "    Sent_At      DATETIME default CURRENT_TIMESTAMP," +
+                "    Sender       BOOLEAN  default TRUE not null," +
+                "    User_ID      VARCHAR);"
+        );
+        System.out.println("[DATABASE CONTROLLER] : Table chat_history created");
     }
 
     /*
