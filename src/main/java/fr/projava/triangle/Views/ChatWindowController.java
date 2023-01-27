@@ -89,6 +89,7 @@ public class ChatWindowController implements Initializable {
                 if ( ConversationController.sendMessage(user.getId(),userSelected.getUser(),message.getText()).equals("message_sent")){
                     MessageObject msg = new MessageObject(user.getPseudo()+" >> " + message.getText(),true,boxHistory.getWidth());
                     boxHistory.getChildren().add(msg);
+                    boxHistory.setSpacing(5);
                     message.clear();
                     lblMessageNotSent.setText(" ");
                 } else {
@@ -105,6 +106,7 @@ public class ChatWindowController implements Initializable {
     public void addMessageReceived(String pseudoSender, String msg){
         MessageObject m = new MessageObject(pseudoSender+" >> " + msg,false,boxHistory.getWidth());
         boxHistory.getChildren().add(m);
+        boxHistory.setSpacing(5);
     }
     /*
     * If sender is not selected when a new message os received,
