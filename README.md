@@ -7,7 +7,7 @@ Depending on the situation, the system architecture changes. It provides differe
 
 ## 2.1. Requirements
 
-### Functional Requirements**
+### **Functional Requirements**
 
 - The user can create an account.
 - The user can log in to the account.
