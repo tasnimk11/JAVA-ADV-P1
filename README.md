@@ -95,7 +95,7 @@ There are many ways to deploy the app. Here are two ways we suggest:
     - *Open “**BroadcastAddress**” with any text editor.*
     - *change the broadcast address to that of your network*
         - *if you are on a Linux OS, you can use the* `ifconfig` *command in the terminal.*
-        - *if you are on a Windows OS, you can use the* `ipconfig *`command in the terminal.*
+        - *if you are on a Windows OS, you can use the* `ipconfig` *command in the terminal.*
     - *Make sure you use the correct address, in the correct format and preserve the format of the file.*
 3. Open the terminal and run the following maven command : `mvn clean javafx:run`*.*
     - *Make sure you have Java and Maven installed, and the environment variables of Java and Maven configured correctly.*
